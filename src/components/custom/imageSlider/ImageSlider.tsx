@@ -1,0 +1,101 @@
+"use client";
+import "./ImageSlider.css";
+import { forwardRef, useImperativeHandle, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Thumbs, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/thumbs";
+import type { Swiper as SwiperType } from "swiper";
+
+import Image from "next/image";
+
+const ImageSlider = forwardRef(({ variants }: { variants: Variant[] }, ref) => {
+    const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
+    const [mainSwiper, setMainSwiper] = useState<SwiperType | null>(null);
+    const [activeIndex, setActiveIndex] = useState<number>(0);
+
+    const allImages = variants.flatMap(v =>
+        v.images.map(img => ({
+            ...img,
+            color: v.color,
+        }))
+    );
+
+    const images = variants.flatMap(v =>
+        v.images.map(img => ({ ...img, color: v.color }))
+    );
+
+    const mainImages = images;
+
+    useImperativeHandle(ref, () => ({
+        slideToLoop: (index: number) => {
+            if (mainSwiper) mainSwiper.slideToLoop(index);
+        },
+    }));
+
+    return (
+        <div className="w-full flex flex-col items-center">
+            {/* MAIN */}
+            <Swiper
+                modules={[Navigation, Thumbs, Autoplay]}
+                onSwiper={setMainSwiper}
+                navigation
+                autoplay={{ delay: 3000, disableOnInteraction: true }}
+                thumbs={{ swiper: thumbsSwiper }}
+                loop={mainImages.length > 1}
+                onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+                spaceBetween={10}
+                className="w-full rounded-2xl overflow-hidden"
+            >
+                {mainImages.map((img, i) => (
+                    <SwiperSlide key={i}>
+                        <div className="relative w-full h-64 md:h-80">
+                            <Image
+                                src={img.url}
+                                alt={`product image ${i + 1}`}
+                                fill
+                                style={{ objectFit: "contain" }}
+                                sizes="(max-width: 768px) 100vw, 100vw"
+
+                            />
+                        </div>
+                    </SwiperSlide>
+                ))}
+            </Swiper>
+
+            {/* THUMBS */}
+            <div className="w-full mt-4">
+                <Swiper
+                    modules={[Thumbs]}
+                    onSwiper={setThumbsSwiper}
+                    spaceBetween={10}
+                    slidesPerView={4}
+                    watchSlidesProgress
+                    className="cursor-pointer"
+                >
+                    {allImages.map((img, i) => (
+                        <SwiperSlide key={i}>
+                            <div className="w-full relative rounded-lg overflow-hidden hover:opacity-80 transition h-24">
+                                <Image
+                                    src={img.url}
+                                    alt={`thumb ${i + 1}`}
+                                    fill
+                                    className="object-cover rounded-2xl"
+                                    sizes="(max-width: 768px) 100vw, 320px"
+
+                                />
+                                {activeIndex === i && (
+                                    <div className="absolute inset-0 bg-white/40 rounded-2xl"></div>
+                                )}
+                            </div>
+                        </SwiperSlide>
+                    ))}
+                </Swiper>
+            </div>
+        </div>
+    );
+});
+
+ImageSlider.displayName = "ImageSlider";
+export default ImageSlider;

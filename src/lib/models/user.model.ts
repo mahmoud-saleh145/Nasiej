@@ -1,0 +1,63 @@
+import mongoose, { Schema, models, model } from "mongoose";
+
+import "./order.model";
+const userSchema = new Schema({
+    sessionId: {
+        type: String
+    },
+    email: {
+        type: String,
+        unique: true
+    },
+    firstName: {
+        type: String,
+        default: "",
+        trim: true
+    },
+    lastName: {
+        type: String,
+        default: "",
+        trim: true
+    },
+    address: {
+        type: String,
+        default: "",
+        trim: true
+    },
+    phone: {
+        type: String,
+        default: "",
+        trim: true
+    },
+    city: {
+        type: String,
+        default: "",
+        trim: true
+    },
+    governorate: {
+        type: String,
+        default: "",
+        trim: true
+    },
+    orders: [{
+        _id: false,
+        orderId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "order",
+            trim: true
+        }
+    }],
+    role: {
+        type: String,
+        enum: ["user", "admin"],
+        default: "user"
+    }
+
+
+}, {
+    timestamps: true
+})
+
+const userModel = models.user || model('user', userSchema);
+
+export default userModel;
