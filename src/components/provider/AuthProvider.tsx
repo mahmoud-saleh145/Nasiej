@@ -6,7 +6,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_API}/api/statusToken`, { cache: "no-store" });
+                const res = await fetch(`/api/statusToken`, { cache: "no-store" });
                 const data = await res.json();
                 setLoggedIn(data.loggedIn);
                 setRole(data.role);

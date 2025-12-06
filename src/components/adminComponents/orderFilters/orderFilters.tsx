@@ -32,7 +32,7 @@ export default function OrdersClient() {
                 const [, day, month, year] = dateMatch;
                 searchQuery = `${year}-${month}-${day}`;
             }
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API}/api/order/getOrders`, {
+            const res = await fetch(`/api/order/getOrders`, {
                 method: "POST",
                 headers: { ...JSON_HEADER },
                 body: JSON.stringify({

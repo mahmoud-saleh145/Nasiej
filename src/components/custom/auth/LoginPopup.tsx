@@ -39,7 +39,7 @@ export default function LoginPopup({ open, onClose }: { open: boolean, onClose: 
     const submit = useCallback(async (values: { email: string }) => {
         isLoading(true)
 
-        const user = await fetch(`${process.env.NEXT_PUBLIC_API}/api/auth/login`, {
+        const user = await fetch(`/api/auth/login`, {
             body: JSON.stringify({ ...values }),
             headers: { ...JSON_HEADER },
             credentials: "include",

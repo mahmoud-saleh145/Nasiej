@@ -81,7 +81,7 @@ export default function CheckoutForm() {
 
         onSubmit: async function (values) {
             setLoading(true);
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API}/api/order/createOrder`, {
+            const res = await fetch(`/api/order/createOrder`, {
                 method: "POST",
                 headers: { ...JSON_HEADER },
                 credentials: "include",
@@ -113,7 +113,7 @@ export default function CheckoutForm() {
         const getUser = async () => {
             try {
                 setLoading(true)
-                const res = await fetch(`${process.env.NEXT_PUBLIC_API}/api/user/getUserInfo`, { cache: "no-store" });
+                const res = await fetch(`/api/user/getUserInfo`, { cache: "no-store" });
                 const data: APIResponse<LoginResponse> = await res.json();
 
                 if (data.msg === "success" && data.user) {

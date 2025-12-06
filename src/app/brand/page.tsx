@@ -1,7 +1,7 @@
 import Link from "next/link";
 export default async function BrandPage() {
     async function fetchBrands() {
-        const res = await fetch(`${process.env.API}/api/product/getAllBrands`, { cache: "no-store" });
+        const res = await fetch(`/api/product/getAllBrands`, { cache: "no-store" });
         const data: APIResponse<Brand> = await res.json();
         return data;
     }

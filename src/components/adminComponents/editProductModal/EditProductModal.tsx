@@ -148,7 +148,7 @@ export default function EditProductModal({
             // Append new files
             newFiles.forEach(file => fd.append("files", file, file.name));
 
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API}/api/product/updateProduct`, {
+            const res = await fetch(`/api/product/updateProduct`, {
                 method: "PATCH",
                 body: fd,
                 credentials: "include",

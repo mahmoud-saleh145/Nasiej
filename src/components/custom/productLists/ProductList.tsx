@@ -19,7 +19,7 @@ export default function ProductList() {
     const [empty, setEmpty] = useState(false);
 
     const buildUrl = useCallback(() => {
-        const base = `${process.env.NEXT_PUBLIC_API}/api/product/getProducts`;
+        const base = `/api/product/getProducts`;
         const sp = new URLSearchParams(searchParams?.toString() || "");
         if (!sp.get("page")) sp.set("page", String(pageInfo.page));
         if (!sp.get("limit")) sp.set("limit", String(pageInfo.limit));

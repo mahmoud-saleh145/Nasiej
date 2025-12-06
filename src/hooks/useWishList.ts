@@ -4,7 +4,7 @@ import { JSON_HEADER } from "@/lib/constants/api.constants";
 import { useQueryClient, useMutation, useQuery } from "@tanstack/react-query";
 
 export async function fetchWishlist() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/api/wishlist/getWishlist`, {
+    const res = await fetch(`/api/wishlist/getWishlist`, {
         credentials: "include",
         cache: "no-store"
     });
@@ -24,7 +24,7 @@ export function useToggleWishlist() {
     const queryClient = useQueryClient();
     return useMutation({
         mutationFn: async ({ productId }: { productId: string }) => {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API}/api/wishlist/toggleWishList`, {
+            const res = await fetch(`/api/wishlist/toggleWishList`, {
                 method: "POST",
                 headers: { ...JSON_HEADER },
                 credentials: "include",
@@ -48,7 +48,7 @@ export function useEmptyWishlist() {
 
     return useMutation({
         mutationFn: async () => {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API}/api/wishlist/emptyWishList`, {
+            const res = await fetch(`/api/wishlist/emptyWishList`, {
                 method: "PATCH",
                 headers: { ...JSON_HEADER },
                 credentials: "include",

@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 
 
 async function fetchCart() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/api/cart/getCart`, {
+    const res = await fetch(`/api/cart/getCart`, {
         credentials: "include",
         cache: "no-store"
     });
@@ -23,7 +23,7 @@ export function useCart() {
 
 
 export async function fetchCartQuantity() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/api/cart/getCartQuantity`, {
+    const res = await fetch(`/api/cart/getCartQuantity`, {
         credentials: "include",
         cache: "no-store"
     });
@@ -53,7 +53,7 @@ export function useAddToCart() {
 
     return useMutation({
         mutationFn: async ({ productId, color }: { productId: string; color?: string }) => {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API}/api/cart/addToCart`, {
+            const res = await fetch(`/api/cart/addToCart`, {
                 method: "POST",
                 headers: { ...JSON_HEADER },
                 credentials: "include",
@@ -83,7 +83,7 @@ export function useAddQuantity() {
 
     return useMutation({
         mutationFn: async ({ productId, color }: { productId: string; color?: string }) => {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API}/api/cart/addQuantity`, {
+            const res = await fetch(`/api/cart/addQuantity`, {
                 method: "PATCH",
                 cache: "no-store",
                 headers: { ...JSON_HEADER },
@@ -110,7 +110,7 @@ export function useDecreaseQuantity() {
     const queryClient = useQueryClient();
     return useMutation({
         mutationFn: async ({ productId, color }: { productId: string; color?: string }) => {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API}/api/cart/reduceQuantity`, {
+            const res = await fetch(`/api/cart/reduceQuantity`, {
                 method: "PATCH",
                 cache: "no-store",
                 headers: { ...JSON_HEADER },
@@ -133,7 +133,7 @@ export function useRemoveProduct() {
     const queryClient = useQueryClient();
     return useMutation({
         mutationFn: async ({ productId, color }: { productId: string; color?: string }) => {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API}/api/cart/removeProduct`, {
+            const res = await fetch(`/api/cart/removeProduct`, {
                 method: "PATCH",
                 cache: "no-store",
                 headers: { ...JSON_HEADER },
@@ -156,7 +156,7 @@ export function useEmptyCart() {
 
     return useMutation({
         mutationFn: async () => {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API}/api/cart/emptyCart`, {
+            const res = await fetch(`/api/cart/emptyCart`, {
                 method: "PATCH",
                 cache: "no-store",
                 headers: { ...JSON_HEADER },

@@ -3,7 +3,7 @@ export default async function SpecificCategory({ params }: { params: { category:
 
     const category = params.category
     async function fetchProductsByCategory() {
-        const res = await fetch(`${process.env.API}/api/product/getCategory/${category}`, { cache: 'no-store' });
+        const res = await fetch(`/api/product/getCategory/${category}`, { cache: 'no-store' });
         const data: APIResponse<Product> = await res.json();
         return data;
     }

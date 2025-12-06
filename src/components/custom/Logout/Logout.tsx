@@ -17,7 +17,7 @@ export default function LogoutButton() {
     const handleLogout = async () => {
         setLoading(true)
         queryClient.clear();
-        await fetch(`${process.env.NEXT_PUBLIC_API}/api/auth/logout`, { method: "POST" });
+        await fetch(`/api/auth/logout`, { method: "POST" });
         await signOut({ redirect: true });
         router.push('/', { scroll: false })
         setLoggedIn(false);

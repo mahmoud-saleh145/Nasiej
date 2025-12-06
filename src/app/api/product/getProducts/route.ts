@@ -24,7 +24,7 @@ type ProductQuery = {
 type SortQuery = {
     [key: string]: 1 | -1;
 };
-
+export const dynamic = "force-dynamic";
 export async function GET(req: NextRequest) {
     try {
         await connectToDB();

@@ -74,7 +74,7 @@ export default function AddProductModal({ onClose }: { onClose: () => void }) {
 
             newFiles.forEach(f => fd.append("images", f));
 
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API}/api/product/addProduct`, {
+            const res = await fetch(`/api/product/addProduct`, {
                 method: "POST",
                 body: fd,
                 credentials: "include",

@@ -18,7 +18,7 @@ export default function ProductFilters() {
     useEffect(() => {
         async function fetchCategories() {
             try {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_API}/api/product/getAllCategories`, {
+                const res = await fetch(`/api/product/getAllCategories`, {
                     cache: "no-store",
                 });
                 const data: APIResponse<Category> = await res.json();

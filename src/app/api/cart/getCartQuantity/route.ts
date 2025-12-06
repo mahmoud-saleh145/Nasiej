@@ -2,7 +2,7 @@ import { connectToDB } from "@/lib/db/db";
 import cartModel from "@/lib/models/cart.model";
 import { getUserFromToken } from "@/middleware/getUserFromToken";
 import { NextRequest, NextResponse } from "next/server";
-
+export const dynamic = "force-dynamic";
 export async function GET(req: NextRequest) {
     try {
         await connectToDB()

@@ -4,7 +4,7 @@ export default async function SpecificBrand({ params }: { params: { brand: strin
     const brand = params.brand;
 
     async function fetchProductsByBrand() {
-        const res = await fetch(`${process.env.API}/api/product/getBrand/${brand}`, { cache: 'no-store' });
+        const res = await fetch(`/api/product/getBrand/${brand}`, { cache: 'no-store' });
         const data: APIResponse<Product> = await res.json();
         return data;
     }

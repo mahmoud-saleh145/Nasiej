@@ -23,7 +23,7 @@ export default function SearchCard() {
     async function fetchProducts(searchTerm: string) {
         try {
             setLoading(true);
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API}/api/product/getProducts?search=${encodeURIComponent(searchTerm)}`, { cache: "no-store", });
+            const res = await fetch(`/api/product/getProducts?search=${encodeURIComponent(searchTerm)}`, { cache: "no-store", });
             const data: APIResponse<Product> = await res.json();
 
             if (data.msg === "success" && data.products.length > 0) {
