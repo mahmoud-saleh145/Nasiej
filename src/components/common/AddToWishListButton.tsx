@@ -33,14 +33,17 @@ export default function AddToWishListButton({ productId }: { productId: string }
     return (
         <div
             onClick={handleToggle}
-            className={`col-2 p-0 cursor-pointer pe-2 ${isPending || isLoading || isError ? "opacity-50" : ""
+            className={`col-2 p-0 cursor-pointer text-center   ${isPending || isLoading || isError ? "opacity-50" : ""
                 }`}
         >
-            {inWishlist ? (
-                <FaHeart className="fs-3 mx-auto text-text" />
-            ) : (
-                <FaRegHeart className="fs-3 mx-auto text-text" />
-            )}
+            <div className=" py-1">
+
+                {inWishlist ? (
+                    <FaHeart className="fs-3 mx-auto text-text m-0 w-100" />
+                ) : (
+                        <FaRegHeart className="fs-3 mx-auto text-text m-0 w-100" />
+                )}
+            </div>
         </div>
     );
 }

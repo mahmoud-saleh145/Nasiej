@@ -1,14 +1,39 @@
-import HomePoster from "@/components/custom/homePoster/HomePoster";
 import ProductFilters from "@/components/custom/productFilters/ProductFilters";
 import ProductList from "@/components/custom/productLists/ProductList";
+import img from "../../public/main-name.png"
+import Image from "next/image"
 export default async function ProductsPage() {
 
   return (
     <div className="">
       <div className="flex items-start justify-center min-h-[200px] md:min-h-[400px] lg:min-h-[600px] ">
-        <HomePoster />
-      </div>
+        <div className="flex items-center justify-center ">
 
+          <video
+            className="w-full "
+            autoPlay
+            muted
+            preload="auto"
+            playsInline
+            poster="/poster.png"
+          >
+            <source src="/video.mp4" type="video/mp4" />
+          </video>
+
+          <div className="flex items-center justify-center h-full absolute  logo-text ">
+            <Image
+              src={img}
+              alt="Nasieچ Logo"
+              width={1200}
+              height={600}
+              className="w-1/2 h-full object-contain"
+              priority
+
+            />
+          </div>
+        </div>
+
+      </div>
       <div className="container-fluid mx-auto  py-4">
         <div className="flex flex-col lg:flex-row gap-6 lg:px-6 px-2 ">
           <div className="lg:w-64">
@@ -22,3 +47,4 @@ export default async function ProductsPage() {
     </div>
   );
 }
+
