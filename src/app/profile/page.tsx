@@ -5,7 +5,7 @@ import Image from "next/image";
 export default async function ProfilePage() {
     const token = cookies().get("token")?.value;
 
-    const res = await fetch(`/api/user/getUserInfo`, {
+    const res = await fetch(`${process.env.API}/api/user/getUserInfo`, {
         method: "GET",
         credentials: "include",
         headers: {

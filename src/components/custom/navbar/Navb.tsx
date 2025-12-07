@@ -57,7 +57,7 @@ export default function Navb() {
                                 src={img}
                                 alt="Nasieچ Logo"
                                 width={160}
-
+                                height={70}
                                 className="h-auto outline-none focus:outline-none focus:ring-0"
                                 priority
                             />

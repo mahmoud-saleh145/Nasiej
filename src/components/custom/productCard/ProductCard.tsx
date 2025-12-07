@@ -16,7 +16,7 @@ import { useAuth } from "@/hooks/useAuth";
 
 
 
-export default function ProductCard({product}: {product:ProductDetails}) {
+export default function ProductCard({ product }: { product: ProductDetails }) {
     const role = useAuth((state) => state.role);
 
     const variants = product.variants || [];
@@ -62,7 +62,7 @@ export default function ProductCard({product}: {product:ProductDetails}) {
                         {allImages.length > 0 ? (
                             allImages.map((img, i) => (
                                 <SwiperSlide key={i}>
-                                    <div className="w-full relative h-48 ">
+                                    <div className="w-full relative h-40 ">
                                         <Image
                                             src={img.url}
                                             alt={`product image ${i + 1}`}

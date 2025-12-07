@@ -34,7 +34,9 @@ export default function RootLayout({
       <body className={`bg-background ${geistSans.variable} ${geistMono.variable} antialiased`}>
         <QueryProvider>
           <AuthProvider>
-            <Navb />
+            <div className="bg-background-dark nav-style min-h-[84px]">
+              <Navb />
+            </div>
             <main className="min-h-screen ">
               {children}
             </main>

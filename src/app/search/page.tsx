@@ -4,7 +4,7 @@ import Link from "next/link";
 export default async function SearchPage() {
 
     async function fetchCategory() {
-        const res = await fetch(`/api/product/getAllCategories`, { cache: "no-store" });
+        const res = await fetch(`${process.env.API}/api/product/getAllCategories`, { cache: "no-store" });
         const data: APIResponse<Category> = await res.json();
         return data;
     }

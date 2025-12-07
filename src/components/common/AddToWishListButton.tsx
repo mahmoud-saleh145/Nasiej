@@ -33,7 +33,7 @@ export default function AddToWishListButton({ productId }: { productId: string }
     return (
         <div
             onClick={handleToggle}
-            className={`col-2 p-0 cursor-pointer pe-1 ${isPending || isLoading || isError ? "opacity-50" : ""
+            className={`col-2 p-0 cursor-pointer pe-2 ${isPending || isLoading || isError ? "opacity-50" : ""
                 }`}
         >
             {inWishlist ? (

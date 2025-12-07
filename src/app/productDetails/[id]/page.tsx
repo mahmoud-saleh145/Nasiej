@@ -4,8 +4,7 @@ export default async function ProductDetails({ params }: { params: { id: string 
     const id = params.id;
 
     async function fetchProductDetails() {
-        const URL = process.env.API + `/api/product/getProductDetails/${id}`;
-        const res = await fetch(URL, { cache: "no-store" });
+        const res = await fetch(`${process.env.API}/api/product/getProductDetails/${id}`, { cache: "no-store" });
         const data: APIResponse<{ product: ProductDetails }> = await res.json();
         return data;
     }
