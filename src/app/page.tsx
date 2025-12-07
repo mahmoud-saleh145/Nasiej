@@ -6,7 +6,7 @@ export default async function ProductsPage() {
 
   return (
     <div className="">
-      <div className="flex items-start justify-center min-h-[200px] md:min-h-[400px] lg:min-h-[600px] ">
+      <div className="relative flex items-start justify-center min-h-[200px] md:min-h-[400px] lg:min-h-[600px]  ">
         <div className="flex items-center justify-center ">
 
           <video
@@ -20,13 +20,13 @@ export default async function ProductsPage() {
             <source src="/video.mp4" type="video/mp4" />
           </video>
 
-          <div className="flex items-center justify-center h-full absolute  logo-text ">
+          <div className="flex items-center justify-center absolute top-0 bottom-0 w-full logo-text ">
             <Image
               src={img}
               alt="Nasieچ Logo"
               width={1200}
               height={600}
-              className="w-1/2 h-full object-contain"
+              className="w-1/2 h-ato   object-contain"
               priority
 
             />
@@ -34,6 +34,8 @@ export default async function ProductsPage() {
         </div>
 
       </div>
+
+
       <div className="container-fluid mx-auto  py-4">
         <div className="flex flex-col lg:flex-row gap-6 lg:px-6 px-2 ">
           <div className="lg:w-64">
