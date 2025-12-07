@@ -103,6 +103,13 @@ export default function AddProductModal({ onClose }: { onClose: () => void }) {
         };
     }, []);
 
+
+    const [direction, setDirection] = useState<"ltr" | "rtl">("rtl");
+    function detectDirection(text: string): "ltr" | "rtl" {
+        const arabicRegex = /[\u0600-\u06FF]/;
+        return arabicRegex.test(text) ? "rtl" : "ltr";
+    }
+    console.log(direction)
     return (
         <div className="fixed inset-0 edit-model bg-black/40 flex items-center justify-center p-4">
             <div className="bg-white w-full max-w-3xl rounded-lg p-4 max-h-[90vh] overflow-y-auto">
@@ -118,31 +125,62 @@ export default function AddProductModal({ onClose }: { onClose: () => void }) {
                     <div>
                         <label className="block mb-1 font-medium">Name</label>
                         <input placeholder="Name" className="border p-2 w-full"
-                            value={name} onChange={e => setName(e.target.value)} />
+                            style={{ direction }}
+
+                            value={name} onChange={(e) => {
+                                const val = e.target.value;
+                                setDirection(detectDirection(val));
+                                setName(e.target.value)
+                            }} />
                     </div>
 
                     <div>
                         <label className="block mb-1 font-medium">Price</label>
                         <input placeholder="Price" className="border p-2 w-full"
-                            value={price} onChange={e => setPrice(e.target.value)} />
+                            style={{ direction }}
+
+                            value={price} onChange={(e) => {
+                                setPrice(e.target.value)
+                                const val = e.target.value;
+                                setDirection(detectDirection(val));
+                            }} />
                     </div>
 
                     <div>
                         <label className="block mb-1 font-medium">Discount</label>
                         <input placeholder="Discount" className="border p-2 w-full"
-                            value={discount} onChange={e => setDiscount(e.target.value)} />
+                            style={{ direction }}
+
+                            value={discount} onChange={(e) => {
+                                setDiscount(e.target.value)
+                                const val = e.target.value;
+                                setDirection(detectDirection(val));
+                            }} />
                     </div>
 
                     <div>
                         <label className="block mb-1 font-medium">Brand</label>
                         <input placeholder="Brand" className="border p-2 w-full"
-                            value={brand} onChange={e => setBrand(e.target.value)} />
+                            style={{ direction }}
+
+                            value={brand} onChange={(e) => {
+                                setBrand(e.target.value)
+                                const val = e.target.value;
+                                setDirection(detectDirection(val));
+                            }} />
                     </div>
 
                     <div>
                         <label className="block mb-1 font-medium">Category</label>
-                        <input placeholder="Category" className="border p-2 w-full"
-                            value={category} onChange={e => setCategory(e.target.value)} />
+                        <input
+                            style={{ direction }}
+
+                            placeholder="Category" className="border p-2 w-full"
+                            value={category} onChange={(e) => {
+                                const val = e.target.value;
+                                setDirection(detectDirection(val));
+                                setCategory(e.target.value)
+                            }} />
                     </div>
 
                 </div>
@@ -150,11 +188,16 @@ export default function AddProductModal({ onClose }: { onClose: () => void }) {
                 <div className="mt-4">
                     <label className="block mb-1 font-medium">Description</label>
                     <textarea
-                        className="border p-2 w-full"
+                        className={`border p-2 w-full`}
                         rows={3}
                         placeholder="Description"
                         value={description}
-                        onChange={e => setDescription(e.target.value)}
+                        onChange={(e) => {
+                            setDescription(e.target.value)
+                            const val = e.target.value;
+                            setDirection(detectDirection(val));
+                        }}
+                        style={{ direction }}
                     />
                 </div>
 

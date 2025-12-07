@@ -51,6 +51,51 @@ export default function EditOrderModal({ order, onClose }: EditOrderModalProps) 
         }
     }
 
+    const [direction, setDirection] = useState<"ltr" | "rtl">("rtl");
+    function detectDirection(text: string): "ltr" | "rtl" {
+        const arabicRegex = /[\u0600-\u06FF]/;
+        return arabicRegex.test(text) ? "rtl" : "ltr";
+    }
+
+    function Input({ label, value, onChange }: InputProps) {
+        return (
+            <div className="flex flex-col">
+                <label className="text-sm font-medium mb-1">{label}</label>
+                <input
+                    style={{ direction }}
+
+                    value={value}
+                    onChange={(e) => {
+                        const val = e.target.value;
+                        setDirection(detectDirection(val))
+                        onChange(e.target.value)
+                    }}
+                    className="border rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
+                />
+            </div>
+        );
+    }
+
+    function InputNumber({ label, value, onChange }: InputNumberProps) {
+        return (
+            <div className="flex flex-col">
+                <label className="text-sm font-medium mb-1">{label}</label>
+                <input
+                    style={{ direction }}
+
+                    type="number"
+                    value={value}
+                    onChange={(e) => {
+                        const val = e.target.value;
+                        setDirection(detectDirection(val))
+                        onChange(Number(e.target.value))
+                    }}
+                    className="border rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
+                />
+            </div>
+        );
+    }
+
     return (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-[999]">
             <div className="bg-white w-full max-w-4xl p-6 rounded-xl shadow-xl max-h-[90vh] overflow-y-auto">
@@ -157,29 +202,5 @@ export default function EditOrderModal({ order, onClose }: EditOrderModalProps) 
 
 
 
-function Input({ label, value, onChange }: InputProps) {
-    return (
-        <div className="flex flex-col">
-            <label className="text-sm font-medium mb-1">{label}</label>
-            <input
-                value={value}
-                onChange={(e) => onChange(e.target.value)}
-                className="border rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
-            />
-        </div>
-    );
-}
 
-function InputNumber({ label, value, onChange }: InputNumberProps) {
-    return (
-        <div className="flex flex-col">
-            <label className="text-sm font-medium mb-1">{label}</label>
-            <input
-                type="number"
-                value={value}
-                onChange={(e) => onChange(Number(e.target.value))}
-                className="border rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
-            />
-        </div>
-    );
-}
+

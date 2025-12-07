@@ -52,7 +52,7 @@ export default function ProductList() {
         } finally {
             setLoading(false);
         }
-    }, [pageInfo.limit, buildUrl]);
+    }, [pageInfo.limit]);
 
 
     const searchParamsString = searchParams?.toString();
