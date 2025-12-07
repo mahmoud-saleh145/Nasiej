@@ -118,11 +118,11 @@ export default function ProductCard({ product }: { product: ProductDetails }) {
                             const isSelected = selectedVariant?.color === v.color;
 
                             return (
-                                <div className="flex flex-col items-center" key={index}>
+                                <div className="flex flex-col items-center justify-center" key={index}>
                                     <button
                                         onClick={() => !outOfStock && setSelectedVariant(v)}
                                         disabled={outOfStock}
-                                        className={`relative w-6 h-6 rounded-full ${isSelected ? "border-blue-600 ring-2 ring-blue-400" : ""}`}
+                                        className={`relative border w-6 h-6 rounded-full ${isSelected ? "border-blue-600 ring-2 ring-blue-400" : ""}`}
                                     >
                                         <span
                                             className="absolute inset-0 rounded-full"
@@ -138,8 +138,7 @@ export default function ProductCard({ product }: { product: ProductDetails }) {
                                             </span>
                                         )}
                                     </button>
-
-                                    <p className="small mb-0 text-text-secondary">{v.color}</p>
+                                    <p className="small mb-0 text-text-secondary ">{v.color}</p>
                                 </div>
                             );
                         })}
@@ -161,7 +160,7 @@ export default function ProductCard({ product }: { product: ProductDetails }) {
                         <Swiper
                             modules={[Thumbs]}
                             spaceBetween={10}
-                            slidesPerView={4}
+                            slidesPerView={3.5}
                             className="cursor-pointer pt-2"
                         >
                             {variants.map((v, i) => {
@@ -169,28 +168,31 @@ export default function ProductCard({ product }: { product: ProductDetails }) {
                                 const isSelected = selectedVariant?.color === v.color;
 
                                 return (
-                                    <SwiperSlide key={i} className="!w-auto flex flex-col items-center">
-                                        <button
-                                            onClick={() => !outOfStock && setSelectedVariant(v)}
-                                            disabled={outOfStock}
-                                            className={`relative w-6 h-6 rounded-full ${isSelected ? "ring-2 ring-blue-400" : ""}`}
-                                        >
-                                            <span
-                                                className="absolute inset-0 rounded-full"
-                                                style={{
-                                                    backgroundColor: v.color,
-                                                    opacity: outOfStock ? 0.4 : 1,
-                                                }}
-                                            />
+                                    <SwiperSlide key={i} className="">
+                                        <div className=" flex flex-col items-center justify-center">
 
-                                            {outOfStock && (
-                                                <span className="absolute inset-0 flex items-center justify-center text-red-700 font-bold text-3xl">
-                                                    <IoMdClose />
-                                                </span>
-                                            )}
-                                        </button>
+                                            <button
+                                                onClick={() => !outOfStock && setSelectedVariant(v)}
+                                                disabled={outOfStock}
+                                                className={`relative border w-6 h-6 rounded-full ${isSelected ? "ring-2 ring-blue-400" : ""}`}
+                                            >
+                                                <span
+                                                    className="absolute inset-0 rounded-full"
+                                                    style={{
+                                                        backgroundColor: v.color,
+                                                        opacity: outOfStock ? 0.4 : 1,
+                                                    }}
+                                                />
 
-                                        <p className="small mb-0 text-text-secondary">{v.color}</p>
+                                                {outOfStock && (
+                                                    <span className="absolute inset-0 flex items-center justify-center text-red-700 font-bold text-3xl">
+                                                        <IoMdClose />
+                                                    </span>
+                                                )}
+                                            </button>
+
+                                            <p className="small mb-0 text-text-secondary">{v.color}</p>
+                                        </div>
                                     </SwiperSlide>
                                 );
                             })}
