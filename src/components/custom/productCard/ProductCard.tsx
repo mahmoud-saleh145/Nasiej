@@ -67,7 +67,7 @@ export default function ProductCard({ product }: { product: ProductDetails }) {
                                             src={img.url}
                                             alt={`product image ${i + 1}`}
                                             fill
-                                            className="object-contain"
+                                            className="object-contain select-none"
                                             sizes="(max-width: 768px) 100vw, 320px"
                                         />
                                     </div>
@@ -128,7 +128,7 @@ export default function ProductCard({ product }: { product: ProductDetails }) {
                                             <button
                                                 onClick={() => !outOfStock && setSelectedVariant(v)}
                                                 disabled={outOfStock}
-                                                className={`relative w-6 h-6 rounded-full ${isSelected ? "border-blue-600 ring-2 ring-blue-400" : ""}`}
+                                                className={`relative border w-6 h-6 rounded-full ${isSelected ? "border-blue-600 ring-2 ring-blue-400" : ""}`}
                                             >
                                                 <span
                                                     className="absolute inset-0 rounded-full"

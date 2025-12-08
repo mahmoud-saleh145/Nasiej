@@ -6,6 +6,7 @@ import ImageSlider from "../imageSlider/ImageSlider";
 import { useState, useEffect, useRef } from "react";
 import { IoMdClose } from "react-icons/io";
 import type { Swiper as SwiperType } from "swiper";
+import { useAutoDirection } from "@/hooks/useAutoDirection";
 
 export default function ProductDetailsCard({
     details,
@@ -33,7 +34,6 @@ export default function ProductDetailsCard({
     const handleColorClick = (variant: Variant) => {
         setSelectedVariant(variant);
     };
-
     return (
         <div className="row align-items-center p-3">
 
@@ -84,7 +84,7 @@ export default function ProductDetailsCard({
                     </div>
                 </div>
 
-                <p className="text-text">{details?.description}</p>
+                <p dir={useAutoDirection(details?.description ?? "")} className="text-text whitespace-pre-line">{details?.description}</p>
 
                 <div className="flex items-center gap-3 mt-2 flex-wrap">
                     {variants.map((v, index) => {
@@ -96,7 +96,7 @@ export default function ProductDetailsCard({
                                 <button
                                     onClick={() => !outOfStock && handleColorClick(v)}
                                     disabled={outOfStock}
-                                    className={`relative w-6 h-6 rounded-full ${isSelected ? "border-blue-600 ring-2 ring-blue-400" : ""
+                                    className={`relative w-6 h-6 border rounded-full ${isSelected ? "border-blue-600 ring-2 ring-blue-400" : ""
                                         }`}
                                 >
                                     <span
@@ -106,7 +106,6 @@ export default function ProductDetailsCard({
                                             opacity: outOfStock ? 0.4 : 1,
                                         }}
                                     />
-
                                     {outOfStock && (
                                         <span className="absolute inset-0 flex items-center justify-center text-red-700 font-bold text-3xl">
                                             <IoMdClose />

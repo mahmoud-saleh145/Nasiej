@@ -317,7 +317,7 @@ export default function CheckoutForm() {
                                                     }
                                                     fill
                                                     alt={item.productId.name}
-                                                    className="object-cover rounded-lg "
+                                                    className="object-cover rounded-lg select-none"
                                                     sizes="(max-width: 768px) 20vw, 80px"
 
                                                 />

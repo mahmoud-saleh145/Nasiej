@@ -67,7 +67,7 @@ function WishlistItem({ wish }: { wish: WishList }) {
                                             src={img.url}
                                             alt={`product image ${i + 1}`}
                                             fill
-                                            className="object-contain"
+                                            className="object-contain select-none"
                                             sizes="(max-width: 768px) 100vw, 320px"
                                         />
                                     </div>
@@ -107,75 +107,88 @@ function WishlistItem({ wish }: { wish: WishList }) {
                 </Link>
 
                 {!showAllColors ? (
-                    <div className="flex items-center gap-2 mt-2 flex-wrap">
-                        {variants.slice(0, 3).map((v, index) => {
-                            const outOfStock = v.stock <= v.reserved;
-                            const isSelected = selectedVariant?.color === v.color;
-
-                            return (
-                                <div className="flex flex-col items-center justify-center" key={index}>
-
-                                    <button
-                                        onClick={() => !outOfStock && setSelectedVariant(v)}
-                                        className={`relative w-6 h-6 rounded-full ${isSelected ? "ring-2 ring-blue-400" : ""}`}
-                                        disabled={outOfStock}
-                                    >
-                                        <span
-                                            className="absolute inset-0 rounded-full"
-                                            style={{
-                                                backgroundColor: v.color,
-                                                opacity: outOfStock ? .4 : 1
-                                            }}
-                                        />
-
-                                        {outOfStock && (
-                                            <span className="absolute inset-0 flex items-center justify-center text-red-700 font-bold text-3xl">
-                                                <IoMdClose />
-                                            </span>
-                                        )}
-                                    </button>
-
-                                    <p className="small mb-0 text-text-secondary w-12 truncate text-center">{v.color}</p>
-                                </div>
-                            );
-                        })}
-
-                        {variants.length > 4 && (
-                            <div className="flex flex-col items-center">
-                                <button
-                                    onClick={() => setShowAllColors(true)}
-                                    className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold"
-                                >
-                                    +{variants.length - 4}
-                                </button>
-                                <p className="small mb-0 text-text-secondary">more</p>
-                            </div>
-                        )}
-                    </div>
-                ) : (
-                    <div className="w-full">
+                    <div className="w-full ">
                         <Swiper
                             modules={[Thumbs]}
-                            spaceBetween={10}
-                            slidesPerView={3.2}
-                            className="pt-2 cursor-pointer"
+                            spaceBetween={5}
+                            slidesPerView={4}
+                            className="cursor-pointer pt-2 ps-1 "
                         >
-                            {variants.map((v, i) => {
-                                const outOfStock = v.stock <= v.reserved;
+                            {variants.slice(0, 3).map((v, index) => {
+                                const outOfStock = v.stock <= v.reserved || v.stock === 0;
                                 const isSelected = selectedVariant?.color === v.color;
 
                                 return (
-                                    <SwiperSlide key={i} >
-                                        <div className=" flex flex-col items-center justify-center">
+                                    <SwiperSlide key={index} className="">
+                                        <div className=" p-1 flex flex-col items-center justify-center" key={index}>
+                                            <button
+                                                onClick={() => !outOfStock && setSelectedVariant(v)}
+                                                disabled={outOfStock}
+                                                className={`relative border w-6 h-6 rounded-full ${isSelected ? "border-blue-600 ring-2 ring-blue-400" : ""}`}
+                                            >
+                                                <span
+                                                    className="absolute inset-0 rounded-full"
+                                                    style={{
+                                                        backgroundColor: v.color,
+                                                        opacity: outOfStock ? 0.4 : 1,
+                                                    }}
+                                                />
+
+                                                {outOfStock && (
+                                                    <span className="absolute inset-0 flex items-center justify-center text-red-700 font-bold text-4xl">
+                                                        <IoMdClose />
+                                                    </span>
+                                                )}
+                                            </button>
+                                            <p className="text-xs text-text-secondary truncate  w-12 text-center mb-0 mt-1">{v.color}</p>
+
+                                        </div>
+                                    </SwiperSlide>
+                                );
+                            })}
+                            {variants.length > 4 && (
+                                <SwiperSlide>
+                                    <div className="p-1 flex flex-col items-center justify-center">
+                                        <button
+                                            onClick={() => setShowAllColors(true)}
+                                            className="w-6 h-6 border rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold"
+                                        >
+                                            +{variants.length - 3}
+                                        </button>
+                                        <p className="text-xs text-text-secondary mb-0 mt-1">more</p>
+                                    </div>
+                                </SwiperSlide>
+                            )}
+                        </Swiper>
+
+                    </div>
+                ) : (
+                    <div className="w-full ">
+                        <Swiper
+                            modules={[Thumbs]}
+                            spaceBetween={10}
+                            slidesPerView={4}
+                            className="cursor-pointer pt-2 ps-1 "
+                        >
+                            {variants.map((v, i) => {
+                                const outOfStock = v.stock <= v.reserved || v.stock === 0;
+                                const isSelected = selectedVariant?.color === v.color;
+
+                                return (
+                                    <SwiperSlide key={i} className="">
+                                        <div className="p-1 flex flex-col items-center justify-center">
 
                                             <button
                                                 onClick={() => !outOfStock && setSelectedVariant(v)}
                                                 disabled={outOfStock}
-                                                className={`relative w-6 h-6 rounded-full ${isSelected ? "ring-2 ring-blue-400" : ""}`}
+                                                className={`relative border w-6 h-6 rounded-full ${isSelected ? "ring-2 ring-blue-400" : ""}`}
                                             >
                                                 <span
                                                     className="absolute inset-0 rounded-full"
-                                                    style={{ backgroundColor: v.color, opacity: outOfStock ? .4 : 1 }}
+                                                    style={{
+                                                        backgroundColor: v.color,
+                                                        opacity: outOfStock ? 0.4 : 1,
+                                                    }}
                                                 />
 
                                                 {outOfStock && (
@@ -184,10 +197,9 @@ function WishlistItem({ wish }: { wish: WishList }) {
                                                     </span>
                                                 )}
                                             </button>
+                                            <p className="text-xs text-text-secondary truncate w-12 text-center mb-0 mt-1">{v.color}</p>
 
-                                            <p className="small mb-0 text-text-secondary w-12 truncate text-center">{v.color}</p>
                                         </div>
-
                                     </SwiperSlide>
                                 );
                             })}

@@ -103,7 +103,7 @@ export default function ProductList() {
                 ) : (
                     <div className="relative ">
                         {loading ?
-                            <div className="absolute top-0 bottom-0 end-0 start-0 d-flex align-items-center justify-content-center min-h-screen  opacity-50">
+                            <div className="absolute top-0 bottom-0 end-0 start-0 flex items-start mt-8 justify-center min-h-screen  opacity-50">
                                 <TailSpin
                                     visible={true}
                                     height="80"

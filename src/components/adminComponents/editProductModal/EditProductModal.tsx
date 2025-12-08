@@ -257,7 +257,7 @@ export default function EditProductModal({
                                                         src={img.url}
                                                         alt={v.color}
                                                         fill
-                                                        className="rounded mr-3 object-cover"
+                                                        className="rounded mr-3 object-cover select-none"
                                                         sizes="(max-width: 640px) 80px, (max-width: 768px) 100px, 112px"
 
                                                     />
@@ -276,7 +276,7 @@ export default function EditProductModal({
                                                         src={newPreviews[i]}
                                                         alt="New files selection per variant"
 
-                                                        className="object-cover rounded w-20 h-20"
+                                                        className="object-cover rounded w-20 h-20 select-none"
                                                     />
                                                     <button onClick={() => removeNewFile(i)} className="text-red-600">Remove</button>
                                                 </div>
@@ -295,7 +295,7 @@ export default function EditProductModal({
                                             <img
                                                 alt="Upload new files"
                                                 src={newPreviews[i]}
-                                                className="object-cover rounded w-20 h-20"
+                                                className="object-cover rounded w-20 h-20 select-none"
                                             />
                                             <div className="flex items-center gap-2">
                                                 <select

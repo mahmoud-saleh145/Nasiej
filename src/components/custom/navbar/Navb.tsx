@@ -58,7 +58,7 @@ export default function Navb() {
                                 alt="Nasieچ Logo"
                                 width={160}
                                 height={70}
-                                className="h-auto outline-none focus:outline-none focus:ring-0"
+                                className="h-auto outline-none focus:outline-none focus:ring-0 select-none"
                                 priority
                             />
                         </Link>
@@ -174,7 +174,7 @@ export default function Navb() {
                                 alt="Nasieچ Logo"
                                 width={160}
                                 height={160}
-                                className="h-auto outline-none focus:outline-none focus:ring-0"
+                                className="h-auto outline-none focus:outline-none focus:ring-0 select-none"
                                 priority
                             />
                         </Link>

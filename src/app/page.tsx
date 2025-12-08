@@ -26,7 +26,7 @@ export default async function ProductsPage() {
               alt="Nasieچ Logo"
               width={1200}
               height={600}
-              className="w-1/2 h-ato   object-contain"
+              className="w-1/2 h-ato select-none  object-contain"
               priority
 
             />

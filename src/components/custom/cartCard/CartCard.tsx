@@ -58,11 +58,9 @@ export default function CartCard() {
                                             || product.productId.variants[0]?.images?.[0]?.url
                                         }
                                         alt={product.productId.name}
-                                        className="rounded "
+                                        className="rounded object-cover select-none"
                                         fill
-                                        style={{ objectFit: "cover" }}
                                         sizes="(max-width: 640px) 80px, (max-width: 768px) 100px, 112px"
-
                                     />
                                 </div>
                                 <div>

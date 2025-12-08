@@ -41,7 +41,7 @@ export default function Invoice({ order }: { order?: CompleteOrder }) {
                                         }
                                         alt={item.productId.name}
                                         fill
-                                        className=" object-cover rounded-lg border"
+                                        className=" object-cover rounded-lg border select-none"
                                         sizes="(max-width: 768px) 20vw, 80px"
 
                                     />

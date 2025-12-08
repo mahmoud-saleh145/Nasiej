@@ -55,7 +55,7 @@ const ImageSlider = forwardRef(({ variants }: { variants: Variant[] }, ref) => {
                                 src={img.url}
                                 alt={`product image ${i + 1}`}
                                 fill
-                                style={{ objectFit: "contain" }}
+                                className="select-none object-contain"
                                 sizes="(max-width: 768px) 100vw, 100vw"
 
                             />
@@ -81,7 +81,7 @@ const ImageSlider = forwardRef(({ variants }: { variants: Variant[] }, ref) => {
                                     src={img.url}
                                     alt={`thumb ${i + 1}`}
                                     fill
-                                    className="object-cover rounded-2xl"
+                                    className="object-cover rounded-2xl select-none"
                                     sizes="(max-width: 768px) 100vw, 320px"
 
                                 />
