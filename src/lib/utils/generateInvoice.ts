@@ -1,5 +1,5 @@
 export const generateInvoice = (order: Order) => {
-    const itemsRows = order.products.map(item => `
+  const itemsRows = order.products.map(item => `
     <tr>
       <td style="padding:8px;border-bottom:1px solid #eee;">${item.productId.name}</td>
       <td style="padding:8px;border-bottom:1px solid #eee;text-align:center;">${item.quantity}</td>
@@ -7,10 +7,7 @@ export const generateInvoice = (order: Order) => {
     </tr>
   `).join("");
 
-    const subtotal = order.products.reduce((acc, item) => acc + item.price * item.quantity, 0);
-    const shipping = order.shippingCost || 0;
-    const total = subtotal + shipping;
-    return `
+  return `
   <div style="font-family:Arial,sans-serif;max-width:650px;margin:0 auto;background:#fff;border:1px solid #eee;border-radius:8px;overflow:hidden;">
     
     <!-- Header -->

@@ -20,7 +20,7 @@ export default async function ProductsPage() {
             <source src="/video.mp4" type="video/mp4" />
           </video>
 
-          <div className="flex items-center justify-center absolute top-0 bottom-0 w-full logo-text ">
+          <div className="flex items-center justify-center absolute top-0 bottom-0 w-full logo-text  ">
             <Image
               src={img}
               alt="Nasieچ Logo"

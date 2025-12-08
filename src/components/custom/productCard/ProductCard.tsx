@@ -144,13 +144,13 @@ export default function ProductCard({ product }: { product: ProductDetails }) {
                                                     </span>
                                                 )}
                                             </button>
-                                            <p className="text-xs text-text-secondary truncate  w-12 text-center mb-0 mt-1">{v.color}</p>
+                                            <p className="text-xs text-text-secondary truncate  w-12 text-center mb-0 mt-1 px-2.5">{v.color}</p>
 
                                         </div>
                                     </SwiperSlide>
                                 );
                             })}
-                            {variants.length > 4 && (
+                            {variants.length > 3 && (
                                 <SwiperSlide>
                                     <div className="p-1 flex flex-col items-center justify-center">
                                         <button
@@ -201,7 +201,7 @@ export default function ProductCard({ product }: { product: ProductDetails }) {
                                                     </span>
                                                 )}
                                             </button>
-                                            <p className="text-xs text-text-secondary truncate w-12 text-center mb-0 mt-1">{v.color}</p>
+                                            <p className="text-xs text-text-secondary truncate w-12 text-center mb-0 mt-1 px-2.5">{v.color}</p>
 
                                         </div>
                                     </SwiperSlide>
