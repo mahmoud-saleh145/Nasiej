@@ -39,9 +39,9 @@ export default function AddToWishListButton({ productId }: { productId: string }
             <div className=" py-1">
 
                 {inWishlist ? (
-                    <FaHeart className="fs-3 mx-auto text-text m-0 w-100" />
+                    <FaHeart className="fs-3 mx-auto text-text m-0 w-100 hover:scale-[1.05]" />
                 ) : (
-                        <FaRegHeart className="fs-3 mx-auto text-text m-0 w-100" />
+                    <FaRegHeart className="fs-3 mx-auto text-text m-0 w-100 hover:scale-[1.05]" />
                 )}
             </div>
         </div>

@@ -7,6 +7,7 @@ import { useState, useEffect, useRef } from "react";
 import { IoMdClose } from "react-icons/io";
 import type { Swiper as SwiperType } from "swiper";
 import { useAutoDirection } from "@/hooks/useAutoDirection";
+import { FaMinus, FaPlus } from "react-icons/fa";
 
 export default function ProductDetailsCard({
     details,
@@ -19,8 +20,15 @@ export default function ProductDetailsCard({
 }) {
 
 
+
+
     const [selectedVariant, setSelectedVariant] = useState<Variant | null>(null);
+    console.log("selectedVariant", selectedVariant);
+
+    // eslint-disable-next-line prefer-const
+    let [quantity, setQuantity] = useState<number>(1)
     const sliderRef = useRef<SwiperType | null>(null);
+    console.log(quantity);
 
     useEffect(() => {
         if (!selectedVariant || !sliderRef.current) return;
@@ -34,6 +42,15 @@ export default function ProductDetailsCard({
     const handleColorClick = (variant: Variant) => {
         setSelectedVariant(variant);
     };
+
+    async function increase() {
+        setQuantity(quantity += 1)
+    }
+    async function decrease() {
+        if (quantity > 1) {
+            setQuantity(quantity -= 1)
+        }
+    }
     return (
         <div className="row align-items-center p-3">
 
@@ -86,7 +103,7 @@ export default function ProductDetailsCard({
 
                 <p dir={useAutoDirection(details?.description ?? "")} className="text-text whitespace-pre-line">{details?.description}</p>
 
-                <div className="flex items-center gap-3 mt-2 flex-wrap">
+                <div className="flex items-center gap-3 mt-2 flex-wrap mb-4">
                     {variants.map((v, index) => {
                         const outOfStock = v.stock <= v.reserved || v.stock === 0;
                         const isSelected = selectedVariant?.color === v.color;
@@ -118,11 +135,25 @@ export default function ProductDetailsCard({
                         );
                     })}
                 </div>
+                <div className="grid grid-cols-12">
 
-                <div className="row justify-between gx-3 align-items-center mt-3">
+                    <div className="col-span-10 flex justify-between items-center p-2 text-text">
+                        <button className=" hover:text-text-secondary hover:scale-[1.1]" disabled={quantity === 1} onClick={decrease} >
+                            <FaMinus />
+                        </button>
+                        <h6 className="m-0 ">{quantity}</h6>
+                        <button className=" hover:text-text-secondary hover:scale-[1.1]" onClick={increase} disabled={variants === null || quantity === variants[0].stock} >
+
+                            <FaPlus />
+                        </button>
+
+                    </div>
+                </div>
+                <div className="row justify-between gx-3 align-items-center mt-2">
                     <AddToCartButton
                         productId={details?._id || ""}
                         selectedColor={selectedVariant?.color || ""}
+                        quantity={quantity || 1}
                     />
 
                     <AddToWishListButton

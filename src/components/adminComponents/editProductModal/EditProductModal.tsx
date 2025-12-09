@@ -243,7 +243,18 @@ export default function EditProductModal({
                                 {variants.map((v, idx) => (
                                     <div key={idx} className="border p-2 rounded bg-gray-50">
                                         <div className="flex justify-between items-center mb-2">
-                                            <input type="text" value={v.color} onChange={e => updateVariant(idx, "color", e.target.value)} className="border rounded p-1 text-sm w-28" placeholder="Color" />
+                                            <div className="flex flex-col">
+
+                                                <input type="text" value={v.color} onChange={e => updateVariant(idx, "color", e.target.value)} className="border rounded p-1 text-sm w-28" placeholder="Color" />
+                                                <div className="relative border w-6 h-6 rounded-full mt-1">
+                                                    <span
+                                                        className="absolute inset-0 rounded-full "
+                                                        style={{
+                                                            backgroundColor: v.color,
+                                                        }}
+                                                    />
+                                                </div>
+                                            </div>
                                             <input type="number" value={v.stock} onChange={e => updateVariant(idx, "stock", e.target.value)} className="border rounded p-1 text-sm w-20" placeholder="Stock" />
                                             <input type="number" value={v.reserved} onChange={e => updateVariant(idx, "reserved", e.target.value)} className="border rounded p-1 text-sm w-20" placeholder="Reserved" />
                                             <button onClick={() => removeVariant(idx)} className="text-red-600 p-1" title="Remove variant">Remove</button>

@@ -109,6 +109,13 @@ export default function AddProductModal({ onClose }: { onClose: () => void }) {
         const arabicRegex = /[\u0600-\u06FF]/;
         return arabicRegex.test(text) ? "rtl" : "ltr";
     }
+
+    function removeImage(idx: number) {
+        setNewFiles(prev => prev.filter((_, i) => i !== idx));
+        setPreviews(prev => prev.filter((_, i) => i !== idx));
+        setAssignVariant(prev => prev.filter((_, i) => i !== idx));
+    }
+
     return (
         <div className="fixed inset-0 edit-model bg-black/40 flex items-center justify-center p-4">
             <div className="bg-white w-full max-w-3xl rounded-lg p-4 max-h-[90vh] overflow-y-auto">
@@ -211,6 +218,14 @@ export default function AddProductModal({ onClose }: { onClose: () => void }) {
                                     className="border p-1 w-full"
                                     onChange={e => updateVariant(i, "color", e.target.value)}
                                     placeholder="Color" />
+                                <div className="relative border w-6 h-6 rounded-full mt-1">
+                                    <span
+                                        className="absolute inset-0 rounded-full "
+                                        style={{
+                                            backgroundColor: v.color,
+                                        }}
+                                    />
+                                </div>
                             </div>
 
                             <div className="w-full">
@@ -265,6 +280,12 @@ export default function AddProductModal({ onClose }: { onClose: () => void }) {
                                 ))}
                             </select>
                         </div>
+                        <button
+                            onClick={() => removeImage(i)}
+                            className="text-red-600 hover:text-red-800 font-semibold"
+                        >
+                            Remove
+                        </button>
                     </div>
                 ))}
 

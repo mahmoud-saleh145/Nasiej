@@ -20,7 +20,7 @@ export default async function ProfilePage() {
     }
     const user = data?.user;
     return (
-        <div className="container mx-auto my-4 text-text">
+        <div className="container mx-auto py-4  text-text ">
             {/* User Info */}
             <div className="mb-6 p-4 bg-background-light rounded-lg shadow-sm border border-border">
                 <div className="flex items-center justify-between mb-3 font-semibold">

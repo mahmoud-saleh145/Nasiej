@@ -52,13 +52,13 @@ export function useAddToCart() {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: async ({ productId, color }: { productId: string; color?: string }) => {
+        mutationFn: async ({ productId, color, quantity }: { productId: string; color?: string, quantity?: number }) => {
             const res = await fetch(`/api/cart/addToCart`, {
                 method: "POST",
                 headers: { ...JSON_HEADER },
                 credentials: "include",
                 cache: "no-store",
-                body: JSON.stringify({ productId, color }),
+                body: JSON.stringify({ productId, color, quantity }),
             });
             const data: EditCartResponse = await res.json();
             if (!res.ok) throw new Error("Failed to update quantity");

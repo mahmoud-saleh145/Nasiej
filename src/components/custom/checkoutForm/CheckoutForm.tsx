@@ -8,12 +8,12 @@ import { ChevronDown } from "lucide-react";
 import { useCart, useEmptyCart, useRemoveProduct } from "@/hooks/useCart";
 import LoadingPage from "@/components/common/LoadingPage";
 import { JSON_HEADER } from "@/lib/constants/api.constants";
-import Invoice from "../invoice/Invoice";
 import { useRouter } from 'next/navigation';
 import LoginPopup from "../auth/LoginPopup";
 import { FaRegTrashCan } from "react-icons/fa6";
 import Image from "next/image";
 import { useAuth } from "@/hooks/useAuth";
+import Invoice from "../invoice/Invoice";
 
 
 const shippingRates = {

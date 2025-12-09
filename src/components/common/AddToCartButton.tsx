@@ -6,12 +6,13 @@ import { useState, useEffect } from "react";
 interface AddToCartButtonProps {
     productId: string;
     selectedColor?: string;
-
+    quantity?: number;
 }
 
 export default function AddToCartButton({
     productId,
     selectedColor,
+    quantity
 
 }: AddToCartButtonProps) {
 
@@ -25,7 +26,7 @@ export default function AddToCartButton({
         }
 
         addToCart(
-            { productId, color: selectedColor }
+            { productId, color: selectedColor, quantity }
         );
     };
 
