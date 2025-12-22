@@ -53,6 +53,15 @@ export default function ProductFilters() {
         updateFilter(key, "");
     };
 
+    const handleReset = () => {
+        setSelectedCategory("");
+        setSort("");
+        setMinPrice("");
+        setMaxPrice("");
+
+        router.push("?", { scroll: false });
+    };
+
     const filterContent = () => (
         <div className="flex flex-col gap-6 p-4 w-full">
 
@@ -230,14 +239,6 @@ export default function ProductFilters() {
         setMaxPrice(maxPriceParam);
     }, [searchParams]);
 
-    const handleReset = () => {
-        setSelectedCategory("");
-        setSort("");
-        setMinPrice("");
-        setMaxPrice("");
-
-        router.push("?", { scroll: false });
-    };
 
     return (
         <aside className="border rounded-2xl  bg-background-light shadow-sm w-full ">

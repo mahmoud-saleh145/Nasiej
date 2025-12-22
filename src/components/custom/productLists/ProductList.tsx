@@ -33,6 +33,7 @@ export default function ProductList() {
             const url = buildUrl();
             const res = await fetch(url, { cache: "no-store" });
             const data: APIResponse<Product> = await res.json();
+            console.log("dataaaaa", data)
             if (data.msg === "success" && data.products.length > 0) {
                 setEmpty(false)
                 setProducts(data.products);
@@ -52,7 +53,7 @@ export default function ProductList() {
         } finally {
             setLoading(false);
         }
-    }, [pageInfo.limit]);
+    }, [buildUrl, pageInfo.limit]);
 
 
     const searchParamsString = searchParams?.toString();

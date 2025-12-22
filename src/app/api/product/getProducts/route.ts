@@ -55,7 +55,9 @@ export async function GET(req: NextRequest) {
             ];
         }
 
-        const priceField = 'finalPrice' in productModel.schema.obj ? 'finalPrice' : 'price';
+        const priceField = productModel.schema.path("finalPrice")
+            ? "finalPrice"
+            : "price";
 
 
         if (minPrice || maxPrice) {
