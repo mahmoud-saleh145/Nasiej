@@ -104,6 +104,7 @@ export default function EditOrderModal({ order, onClose }: EditOrderModalProps) 
                 <div className="flex justify-between items-center mb-6">
                     <h2 className="text-xl font-semibold">Edit Order</h2>
                     <button
+                        aria-label="Close Edit Order Modal"
                         onClick={onClose}
                         className="text-gray-500 hover:text-gray-800 text-lg"
                     >

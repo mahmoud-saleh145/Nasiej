@@ -187,7 +187,9 @@ export default function EditProductModal({
                 {/* Header */}
                 <div className="flex items-center justify-between pb-3 mb-4">
                     <h3 className="text-xl font-semibold m-0">Edit Product</h3>
-                    <button onClick={onClose} className="text-gray-500 hover:text-gray-700 p-2 rounded">
+                    <button
+                        aria-label="Close edit product modal"
+                        onClick={onClose} className="text-gray-500 hover:text-gray-700 p-2 rounded">
                         <IoMdClose size={24} />
                     </button>
                 </div>
@@ -414,7 +416,9 @@ export default function EditProductModal({
                     <div className="text-red-600">{err}</div>
                     <div className="flex items-center gap-2">
                         <button onClick={onClose} className="px-4 py-2 rounded border">Cancel</button>
-                        <button onClick={handleSave} className={`px-4 py-2 rounded text-white ${loading ? "bg-gray-400" : "bg-buttons hover:bg-buttons-hover text-white"}`} disabled={loading}>
+                        <button
+                            aria-label="Save changes to product"
+                            onClick={handleSave} className={`px-4 py-2 rounded text-white ${loading ? "bg-gray-400" : "bg-buttons hover:bg-buttons-hover text-white"}`} disabled={loading}>
                             {loading ? "Saving..." : "Save changes"}
                         </button>
                     </div>

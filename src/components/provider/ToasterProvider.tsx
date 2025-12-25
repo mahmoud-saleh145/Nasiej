@@ -5,7 +5,7 @@ import { Toaster } from "react-hot-toast";
 
 export default function ToasterProvider() {
     return (
-        <Link href={"/cart"} className="cursor-pointer">
+        <Link href={"/cart"} className="cursor-pointer" aria-label="Go to cart">
             <Toaster
                 position="top-right"
                 toastOptions={{

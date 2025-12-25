@@ -145,6 +145,7 @@ export default function LoginPopup({ open, onClose }: { open: boolean, onClose: 
                         )}
 
                         <button type="submit"
+                            aria-label="Sign in"
                             disabled={loading}
                             onClick={(e) => e.stopPropagation()}
                             className="w-full py-2 rounded-2xl bg-buttons text-text font-semibold hover:bg-buttons-hover shadow-xl">

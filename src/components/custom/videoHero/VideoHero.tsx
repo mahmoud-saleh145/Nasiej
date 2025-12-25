@@ -10,8 +10,11 @@ export default function VideoHero({ poster = "/poster.png" }: Props) {
             autoPlay
             muted
             playsInline
-            preload="metadata"
+            preload="auto"
             poster={poster}
+            controls={false}
+            lazy-loading
+
         >
             <source src="/video.mp4" type="video/mp4" />
         </video>

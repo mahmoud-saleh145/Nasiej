@@ -122,7 +122,7 @@ export default function AddProductModal({ onClose }: { onClose: () => void }) {
 
                 <div className="flex justify-between items-center mb-4">
                     <h2 className="text-xl font-bold">Add New Product</h2>
-                    <button onClick={onClose}><IoMdClose size={25} /></button>
+                    <button aria-label="close-addModel" onClick={onClose}><IoMdClose size={25} /></button>
                 </div>
 
                 {/* Inputs */}
@@ -232,7 +232,7 @@ export default function AddProductModal({ onClose }: { onClose: () => void }) {
                                 <div className="flex justify-between items-center mb-1 ">
                                     <label className="block  font-medium">Stock</label>
                                     {i > 0 ?
-                                        <button onClick={() => removeVariant(i)} className="text-red-600 " title="Remove variant">Remove</button>
+                                        <button aria-label="remove-variant-add" onClick={() => removeVariant(i)} className="text-red-600 " title="Remove variant">Remove</button>
                                         :
                                         ""
                                     }
@@ -247,7 +247,7 @@ export default function AddProductModal({ onClose }: { onClose: () => void }) {
                     </div>
                 ))}
 
-                <button className="bg-buttons hover:bg-buttons-hover text-white px-3 py-1 rounded mt-2"
+                <button aria-label="add-variant-button" className="bg-buttons hover:bg-buttons-hover text-white px-3 py-1 rounded mt-2"
                     onClick={addVariant}>
                     + Add Variant
                 </button>
@@ -281,6 +281,7 @@ export default function AddProductModal({ onClose }: { onClose: () => void }) {
                             </select>
                         </div>
                         <button
+                            aria-label="remove-image-add"
                             onClick={() => removeImage(i)}
                             className="text-red-600 hover:text-red-800 font-semibold"
                         >
@@ -293,10 +294,13 @@ export default function AddProductModal({ onClose }: { onClose: () => void }) {
                     <small className="text-red-600 mb-2">{err}</small>
                     <div className="flex  gap-3">
 
-                        <button onClick={onClose} className="border px-3 py-1 rounded">
+                        <button
+                            aria-label="cancel-add"
+                            onClick={onClose} className="border px-3 py-1 rounded">
                             Cancel
                         </button>
                         <button
+                            aria-label="handelSave-add"
                             onClick={handleSave}
                             className="bg-buttons hover:bg-buttons-hover text-white px-4 py-2 rounded"
                         >

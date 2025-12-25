@@ -38,6 +38,7 @@ export default function AddToCartButton({
         <div className="col-10">
             <div className="relative flex flex-col items-start w-full">
                 <button
+                    aria-label="Add to cart"
                     onClick={handleAddToCart}
                     disabled={isPending}
                     className={`w-full py-2 md:py-3 rounded-lg font-semibold text-sm md:text-base transition-all duration-300

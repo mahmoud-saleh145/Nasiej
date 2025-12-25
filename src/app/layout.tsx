@@ -21,7 +21,7 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "Nasieچ",
-  description: "",
+  description: "Nasieچ is an online store offering top-quality products with fast shipping and a seamless shopping experience.",
 };
 
 export default function RootLayout({

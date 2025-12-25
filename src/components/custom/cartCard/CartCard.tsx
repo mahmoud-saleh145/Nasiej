@@ -97,6 +97,7 @@ export default function CartCard() {
                             <div className="d-flex flex-column align-items-center gap-2">
                                 <div className="d-flex align-items-center gap-2">
                                     <button
+                                        aria-label="Increase quantity"
                                         className="bg-buttons text-text rounded-lg hover:bg-buttons-hover p-1.5"
                                         disabled={addQuantity.isPending}
                                         onClick={() => {
@@ -107,6 +108,7 @@ export default function CartCard() {
                                     </button>
                                     <h6 className="m-0 text-text">{product.quantity}</h6>
                                     <button
+                                        aria-label="Decrease quantity"
                                         className="bg-buttons text-text rounded-lg hover:bg-buttons-hover p-1.5"
                                         disabled={decreaseQuantity.isPending}
                                         onClick={() => decreaseQuantity.mutate({ productId: product.productId._id, color: product.color })}
@@ -114,7 +116,7 @@ export default function CartCard() {
                                         <FaMinus />
                                     </button>
                                 </div>
-                                <button className="text-danger border-0 bg-transparent"
+                                <button aria-label="Remove item" className="text-danger border-0 bg-transparent"
                                     disabled={removeProduct.isPending}
                                     onClick={() => removeProduct.mutate({ productId: product.productId._id, color: product.color })}>
                                     <FaRegTrashCan />
@@ -127,6 +129,7 @@ export default function CartCard() {
                         <ConfirmDialog
                             trigger={
                                 <button
+                                    aria-label="Empty cart"
                                     className={`bg-buttons text-text rounded-lg hover:bg-buttons-hover p-1.5 px-4 ${emptyCart.isPending ? "opacity-70 " : ""
                                         }`}
                                     disabled={emptyCart.isPending}

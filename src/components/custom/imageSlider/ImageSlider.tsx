@@ -129,11 +129,11 @@ const ImageSlider = forwardRef(({ variants }: { variants: Variant[] }, ref) => {
                             <>
                                 {/* Controls */}
                                 <div className="absolute bottom-6 flex gap-4 z-10">
-                                    <button onClick={() => zoomIn()} className="px-4 py-2 text-2xl  bg-white rounded">
+                                    <button aria-label="Zoom in" onClick={() => zoomIn()} className="px-4 py-2 text-2xl  bg-white rounded">
                                         <LucideZoomIn />
 
                                     </button>
-                                    <button onClick={() => zoomOut()} className="px-4 py-2 text-2xl bg-white rounded">
+                                    <button aria-label="Zoom out" onClick={() => zoomOut()} className="px-4 py-2 text-2xl bg-white rounded">
                                         <LucideZoomOut />
 
                                     </button>

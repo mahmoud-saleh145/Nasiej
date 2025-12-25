@@ -295,6 +295,7 @@ export default function CheckoutForm() {
                                 <h2 className="text-xl font-semibold text-text">Order summary</h2>
 
                                 <button
+                                    aria-label="Show or hide order items"
                                     type="button"
                                     onClick={() => setShowItems(!showItems)}
                                     className="text-gray-600 text-sm underline"
@@ -354,7 +355,7 @@ export default function CheckoutForm() {
                                                                 ? item.productId.price - (item.productId.price * item.productId.discount) / 100
                                                                 : item.productId.price} LE
                                                 </span>
-                                                <button className="text-danger text-lg border-0 bg-transparent ms-auto"
+                                                <button aria-label="Remove item" className="text-danger text-lg border-0 bg-transparent ms-auto"
                                                     disabled={removeProduct.isPending}
                                                     onClick={() => removeProduct.mutate({ productId: item.productId._id, color: item.color })}>
                                                     <FaRegTrashCan />

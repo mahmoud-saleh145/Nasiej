@@ -126,6 +126,7 @@ export default function ProductCard({ product }: { product: ProductDetails }) {
                                     <SwiperSlide key={index} className="">
                                         <div className=" p-1 flex flex-col items-center justify-center" key={index}>
                                             <button
+                                                aria-label={`Select color ${v.color}`}
                                                 onClick={() => !outOfStock && setSelectedVariant(v)}
                                                 disabled={outOfStock}
                                                 className={`relative border w-6 h-6 rounded-full ${isSelected ? "border-blue-600 ring-2 ring-blue-400" : ""}`}
@@ -154,6 +155,7 @@ export default function ProductCard({ product }: { product: ProductDetails }) {
                                 <SwiperSlide>
                                     <div className="p-1 flex flex-col items-center justify-center">
                                         <button
+                                            aria-label="Show all colors"
                                             onClick={() => setShowAllColors(true)}
                                             className="w-6 h-6 border rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold"
                                         >
@@ -183,6 +185,7 @@ export default function ProductCard({ product }: { product: ProductDetails }) {
                                         <div className="p-1 flex flex-col items-center justify-center">
 
                                             <button
+                                                aria-label={`Select color ${v.color}`}
                                                 onClick={() => !outOfStock && setSelectedVariant(v)}
                                                 disabled={outOfStock}
                                                 className={`relative border w-6 h-6 rounded-full ${isSelected ? "ring-2 ring-blue-400" : ""}`}

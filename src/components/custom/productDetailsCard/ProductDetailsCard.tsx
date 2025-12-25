@@ -107,6 +107,7 @@ export default function ProductDetailsCard({
                         return (
                             <div className="flex flex-col items-center" key={index}>
                                 <button
+                                    aria-label={`Select color ${v.color}`}
                                     onClick={() => !outOfStock && handleColorClick(v)}
                                     disabled={outOfStock}
                                     className={`relative w-6 h-6 border rounded-full ${isSelected ? "border-blue-600 ring-2 ring-blue-400" : ""
@@ -134,11 +135,13 @@ export default function ProductDetailsCard({
                 <div className="grid grid-cols-12">
 
                     <div className="col-span-10 flex justify-between items-center p-2 text-text">
-                        <button className=" hover:text-text-secondary hover:scale-[1.1]" disabled={quantity === 1} onClick={decrease} >
+                        <button aria-label="Decrease quantity" className=" hover:text-text-secondary hover:scale-[1.1]" disabled={quantity === 1} onClick={decrease} >
                             <FaMinus />
                         </button>
                         <h6 className="m-0 ">{quantity}</h6>
-                        <button className=" hover:text-text-secondary hover:scale-[1.1]" onClick={increase} disabled={variants === null || quantity === variants[0].stock} >
+                        <button
+                            aria-label="Increase quantity"
+                            className=" hover:text-text-secondary hover:scale-[1.1]" onClick={increase} disabled={variants === null || quantity === variants[0].stock} >
 
                             <FaPlus />
                         </button>

@@ -14,7 +14,7 @@ export default function Error({
             <body>
                 <main>
                     Error {error.message}
-                    <button onClick={reset}>Reset</button>
+                    <button aria-label="reset" onClick={reset}>Reset</button>
                     <span>or go to </span>
                     <Link href={'/'}> home page</Link>
                 </main>

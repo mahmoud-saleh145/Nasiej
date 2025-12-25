@@ -182,6 +182,7 @@ export default function ProductFilters() {
                         />
                         {minPrice && (
                             <button
+                                aria-label="Clear minimum price"
                                 type="button"
                                 onClick={() => clearFilter("minPrice")}
                                 className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-xs"
@@ -207,6 +208,7 @@ export default function ProductFilters() {
                         />
                         {maxPrice && (
                             <button
+                                aria-label="Clear maximum price"
                                 type="button"
                                 onClick={() => clearFilter("maxPrice")}
                                 className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-xs"

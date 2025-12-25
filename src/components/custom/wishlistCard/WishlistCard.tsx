@@ -122,6 +122,7 @@ function WishlistItem({ wish }: { wish: WishList }) {
                                     <SwiperSlide key={index} className="">
                                         <div className=" p-1 flex flex-col items-center justify-center" key={index}>
                                             <button
+                                                aria-label={`Select color ${v.color}`}
                                                 onClick={() => !outOfStock && setSelectedVariant(v)}
                                                 disabled={outOfStock}
                                                 className={`relative border w-6 h-6 rounded-full ${isSelected ? "border-blue-600 ring-2 ring-blue-400" : ""}`}
@@ -150,6 +151,7 @@ function WishlistItem({ wish }: { wish: WishList }) {
                                 <SwiperSlide>
                                     <div className="p-1 flex flex-col items-center justify-center">
                                         <button
+                                            aria-label="Show all colors"
                                             onClick={() => setShowAllColors(true)}
                                             className="w-6 h-6 border rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold"
                                         >
@@ -179,6 +181,7 @@ function WishlistItem({ wish }: { wish: WishList }) {
                                         <div className="p-1 flex flex-col items-center justify-center">
 
                                             <button
+                                                aria-label={`Select color ${v.color}`}
                                                 onClick={() => !outOfStock && setSelectedVariant(v)}
                                                 disabled={outOfStock}
                                                 className={`relative border w-6 h-6 rounded-full ${isSelected ? "ring-2 ring-blue-400" : ""}`}
@@ -214,6 +217,7 @@ function WishlistItem({ wish }: { wish: WishList }) {
                     />
 
                     <button
+                        aria-label="Remove from wishlist"
                         className="col-2 text-danger border-0 bg-transparent p-0"
                         disabled={remove.isPending}
                         onClick={() => remove.mutate({ productId: wish.productId._id })}
@@ -253,6 +257,7 @@ export default function WishlistCard() {
                         <ConfirmDialog
                             trigger={
                                 <button
+                                    aria-label="Empty wishlist"
                                     className={`bg-buttons text-text rounded-lg hover:bg-buttons-hover p-1.5 px-4 ${empty.isPending ? "opacity-70 " : ""
                                         }`}
                                     disabled={empty.isPending}

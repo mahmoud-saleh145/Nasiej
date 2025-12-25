@@ -175,6 +175,7 @@ export default function ProductList() {
                                     return pages.map((p, idx) =>
                                         typeof p === "number" ? (
                                             <button
+                                                aria-label={`Go to page ${p}`}
                                                 key={idx}
                                                 onClick={() => {
                                                     const sp = new URLSearchParams(searchParams.toString());

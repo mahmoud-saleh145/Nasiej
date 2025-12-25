@@ -13,6 +13,7 @@ export default function ProductCardAdmin({ product }: { product: ProductDetails 
             <div className="cards-animation relative">
                 {/* Edit button */}
                 <button
+                    aria-label="Edit product"
                     onClick={() => setOpenEdit(true)}
                     className="absolute top-3 right-3 bg-buttons text-white p-2 rounded-full z-20 hover:bg-buttons-hover"
                     title="Edit product"

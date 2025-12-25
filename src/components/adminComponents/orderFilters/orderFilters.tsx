@@ -228,6 +228,7 @@ export default function OrdersClient() {
                     {/* Page Numbers */}
                     {Array.from({ length: page }).map((_, i) => (
                         <button
+                            aria-label={`Go to page ${i + 1}`}
                             key={i}
                             onClick={() => setPage(i + 1)}
                             className={`px-4 py-2 rounded-lg border border-border ${page === i + 1
