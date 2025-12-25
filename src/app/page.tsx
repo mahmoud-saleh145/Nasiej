@@ -15,15 +15,10 @@ export default async function ProductsPage() {
             autoPlay
             muted
             playsInline
-            webkit-playsinline="true"
-            preload="metadata"
+            webkit-playsinline="true"s
+            preload="auto"
             poster="/poster.png"
-            ref={(el) => {
-              if (el) {
-                el.muted = true;
-                el.play().catch(() => { });
-              }
-            }}
+          
           >
             <source src="/video.mp4" type="video/mp4" />
           </video> */}

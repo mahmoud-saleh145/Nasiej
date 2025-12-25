@@ -12,7 +12,7 @@ import "swiper/css/thumbs";
 import type { Swiper as SwiperType } from "swiper";
 import { IoMdClose } from "react-icons/io";
 import { useAuth } from "@/hooks/useAuth";
-
+import { useAutoDirection } from "@/hooks/useAutoDirection";
 
 export default function ProductCard({ product }: { product: ProductDetails }) {
     const role = useAuth((state) => state.role);
@@ -105,7 +105,7 @@ export default function ProductCard({ product }: { product: ProductDetails }) {
                         LE
                     </span>
 
-                    <p className="text-text m-0">{product.name}</p>
+                    <p dir={useAutoDirection(product.name ?? "")} className="text-text m-0 truncate w-full ">{product.name}</p>
                 </Link>
 
                 {/* ---------- VARIANTS (COLORS) ---------- */}
