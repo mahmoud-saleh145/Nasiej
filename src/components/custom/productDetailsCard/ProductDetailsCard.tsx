@@ -18,10 +18,6 @@ export default function ProductDetailsCard({
     variants: Variant[];
 
 }) {
-
-
-
-
     const [selectedVariant, setSelectedVariant] = useState<Variant | null>(null);
     console.log("selectedVariant", selectedVariant);
 

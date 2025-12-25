@@ -2,6 +2,7 @@ import ProductFilters from "@/components/custom/productFilters/ProductFilters";
 import ProductList from "@/components/custom/productLists/ProductList";
 import img from "../../public/main-name.png"
 import Image from "next/image"
+import VideoHero from "@/components/custom/videoHero/VideoHero";
 export default async function ProductsPage() {
 
   return (
@@ -9,16 +10,26 @@ export default async function ProductsPage() {
       <div className="relative flex items-start justify-center min-h-[200px] md:min-h-[400px] lg:min-h-[600px]  ">
         <div className="flex items-center justify-center ">
 
-          <video
-            className="w-full "
+          {/* <video
+            className="w-full"
             autoPlay
             muted
-            preload="auto"
             playsInline
+            webkit-playsinline="true"
+            preload="metadata"
             poster="/poster.png"
+            ref={(el) => {
+              if (el) {
+                el.muted = true;
+                el.play().catch(() => { });
+              }
+            }}
           >
             <source src="/video.mp4" type="video/mp4" />
-          </video>
+          </video> */}
+
+          <VideoHero poster="/poster.png" />
+
 
           <div className="flex items-center justify-center absolute top-0 bottom-0 w-full logo-text  ">
             <Image

@@ -1,19 +1,27 @@
 "use client";
 import "./ImageSlider.css";
-import { forwardRef, useImperativeHandle, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Thumbs, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import type { Swiper as SwiperType } from "swiper";
+import {
+    TransformWrapper,
+    TransformComponent,
+} from "react-zoom-pan-pinch";
 
 import Image from "next/image";
+import { LucideZoomIn, LucideZoomOut } from "lucide-react";
 
 const ImageSlider = forwardRef(({ variants }: { variants: Variant[] }, ref) => {
     const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
     const [mainSwiper, setMainSwiper] = useState<SwiperType | null>(null);
     const [activeIndex, setActiveIndex] = useState<number>(0);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalImage, setModalImage] = useState<string | null>(null);
+
 
     const allImages = variants.flatMap(v =>
         v.images.map(img => ({
@@ -34,6 +42,9 @@ const ImageSlider = forwardRef(({ variants }: { variants: Variant[] }, ref) => {
         },
     }));
 
+    useEffect(() => {
+        document.body.style.overflow = isModalOpen ? "hidden" : "auto";
+    }, [isModalOpen]);
     return (
         <div className="w-full flex flex-col items-center">
             {/* MAIN */}
@@ -55,7 +66,11 @@ const ImageSlider = forwardRef(({ variants }: { variants: Variant[] }, ref) => {
                                 src={img.url}
                                 alt={`product image ${i + 1}`}
                                 fill
-                                className="select-none object-contain"
+                                onClick={() => {
+                                    setModalImage(img.url);
+                                    setIsModalOpen(true);
+                                }}
+                                className="select-none object-contain cursor-pointer"
                                 sizes="(max-width: 768px) 100vw, 100vw"
 
                             />
@@ -93,6 +108,58 @@ const ImageSlider = forwardRef(({ variants }: { variants: Variant[] }, ref) => {
                     ))}
                 </Swiper>
             </div>
+
+            {isModalOpen && modalImage && (
+                <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center mt-20">
+                    <button
+                        className="absolute top-4 right-4 text-white text-3xl"
+                        onClick={() => setIsModalOpen(false)}
+                    >
+                        ✕
+                    </button>
+
+                    <TransformWrapper
+                        initialScale={1}
+                        minScale={0.5}
+                        maxScale={3}
+                        wheel={{ step: 0.1 }}
+                        doubleClick={{ disabled: true }}
+                    >
+                        {({ zoomIn, zoomOut, resetTransform }) => (
+                            <>
+                                {/* Controls */}
+                                <div className="absolute bottom-6 flex gap-4 z-10">
+                                    <button onClick={() => zoomIn()} className="px-4 py-2 text-2xl  bg-white rounded">
+                                        <LucideZoomIn />
+
+                                    </button>
+                                    <button onClick={() => zoomOut()} className="px-4 py-2 text-2xl bg-white rounded">
+                                        <LucideZoomOut />
+
+                                    </button>
+                                    <button onClick={() => resetTransform()} className="px-4 py-2 text-xl bg-white rounded">
+                                        Reset
+                                    </button>
+                                </div>
+
+                                {/* Image */}
+                                <TransformComponent>
+                                    <div className="relative w-[90vw] h-[80vh]">
+                                        <Image
+                                            src={modalImage}
+                                            alt="zoomed image"
+                                            fill
+                                            className="object-contain"
+                                        />
+                                    </div>
+                                </TransformComponent>
+                            </>
+                        )}
+                    </TransformWrapper>
+                </div>
+            )}
+
+
         </div>
     );
 });

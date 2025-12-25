@@ -44,7 +44,6 @@ export default function ProductFilters() {
         { value: "", label: "Default" },
         { value: "price_asc", label: "Price: Low → High" },
         { value: "price_desc", label: "Price: High → Low" },
-        { value: "newest", label: "Newest" },
     ];
 
     const clearFilter = (key: "minPrice" | "maxPrice") => {

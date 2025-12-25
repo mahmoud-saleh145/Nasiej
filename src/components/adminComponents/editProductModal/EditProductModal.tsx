@@ -175,6 +175,11 @@ export default function EditProductModal({
         };
     }, []);
 
+    const [direction, setDirection] = useState<"ltr" | "rtl">("rtl");
+    function detectDirection(text: string): "ltr" | "rtl" {
+        const arabicRegex = /[\u0600-\u06FF]/;
+        return arabicRegex.test(text) ? "rtl" : "ltr";
+    }
 
     return (
         <div className="fixed inset-0 bg-black/40 edit-model flex items-center justify-center p-4">
@@ -192,37 +197,95 @@ export default function EditProductModal({
                     <div className="space-y-4">
                         <label className="block">
                             <span className="text-base font-medium">Name</span>
-                            <input value={name} onChange={e => setName(e.target.value)} className="mt-1 block w-full border rounded p-3 text-base" />
+                            <input value={name}
+                                style={{ direction }}
+
+                                onChange={(e) => {
+                                    const val = e.target.value;
+                                    setDirection(detectDirection(val));
+                                    setName(e.target.value)
+                                }}
+
+                                className="mt-1 block w-full border rounded p-3 text-base" />
                         </label>
 
                         <div className="flex flex-col sm:flex-row gap-3">
                             <label className="flex-1 block">
                                 <span className="text-base font-medium">Price</span>
-                                <input type="number" lang="en" value={price} onChange={e => setPrice(e.target.value)} className="mt-1 block w-full border rounded p-3 text-base" />
+                                <input
+                                    style={{ direction }}
+
+                                    type="number" value={price}
+                                    onChange={(e) => {
+                                        setPrice(e.target.value)
+                                        const val = e.target.value;
+                                        setDirection(detectDirection(val));
+                                    }}
+                                    className="mt-1 block w-full border rounded p-3 text-base" />
                             </label>
+
                             <label className="w-full sm:w-28 block">
                                 <span className="text-base font-medium">Discount %</span>
-                                <input type="number" lang="en" value={discount} onChange={e => setDiscount(e.target.value)} className="mt-1 block w-full border rounded p-3 text-base" />
+                                <input
+                                    style={{ direction }}
+
+                                    type="number" value={discount}
+                                    onChange={(e) => {
+                                        setDiscount(e.target.value)
+                                        const val = e.target.value;
+                                        setDirection(detectDirection(val));
+                                    }}
+                                    className="mt-1 block w-full border rounded p-3 text-base" />
                             </label>
+
                             <label className="w-full sm:w-28 block">
                                 <span className="text-base font-medium">Raise %</span>
-                                <input type="number" lang="en" value={raise} onChange={e => setRaise(e.target.value)} className="mt-1 block w-full border rounded p-3 text-base" />
+                                <input
+                                    style={{ direction }}
+
+                                    type="number" value={raise}
+                                    onChange={(e) => {
+                                        setRaise(e.target.value)
+                                        const val = e.target.value;
+                                        setDirection(detectDirection(val));
+                                    }}
+                                    className="mt-1 block w-full border rounded p-3 text-base" />
                             </label>
                         </div>
 
                         <label className="block">
                             <span className="text-base font-medium">Brand</span>
-                            <input value={brand} onChange={e => setBrand(e.target.value)} className="mt-1 block w-full border rounded p-3 text-base" />
+                            <input
+                                style={{ direction }}
+
+                                value={brand} onChange={(e) => {
+                                    setBrand(e.target.value)
+                                    const val = e.target.value;
+                                    setDirection(detectDirection(val));
+                                }} className="mt-1 block w-full border rounded p-3 text-base" />
                         </label>
 
                         <label className="block">
                             <span className="text-base font-medium">Category</span>
-                            <input value={category} onChange={e => setCategory(e.target.value)} className="mt-1 block w-full border rounded p-3 text-base" />
+                            <input
+                                style={{ direction }}
+
+                                value={category} onChange={(e) => {
+                                    const val = e.target.value;
+                                    setDirection(detectDirection(val));
+                                    setCategory(e.target.value)
+                                }} className="mt-1 block w-full border rounded p-3 text-base" />
                         </label>
 
                         <label className="block">
                             <span className="text-base font-medium">Description</span>
-                            <textarea value={description} onChange={e => setDescription(e.target.value)} rows={4} className="mt-1 block w-full border rounded p-3 text-base" />
+                            <textarea value={description}
+                                style={{ direction }}
+                                onChange={(e) => {
+                                    setDescription(e.target.value)
+                                    const val = e.target.value;
+                                    setDirection(detectDirection(val));
+                                }} rows={3} className="mt-1 block w-full border rounded p-3 text-base" />
                         </label>
 
                         <label className="flex items-center gap-2 text-base">

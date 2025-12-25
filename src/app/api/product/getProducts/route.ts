@@ -66,19 +66,18 @@ export async function GET(req: NextRequest) {
             if (maxPrice) query[priceField].$lte = Number(maxPrice);
         }
 
-        const sort: SortQuery = {};
+        const sort: SortQuery = { createdAt: -1 }
         switch (sortParam) {
             case "price_asc":
                 sort[priceField] = 1;
+                delete sort.createdAt;
+
                 break;
             case "price_desc":
                 sort[priceField] = -1;
+                delete sort.createdAt;
                 break;
-            case "newest":
-                sort.createdAt = -1;
-                break;
-            default:
-                break;
+
         }
 
         const total = await productModel.countDocuments(query);

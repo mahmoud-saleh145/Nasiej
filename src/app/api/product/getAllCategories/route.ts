@@ -1,4 +1,3 @@
-// app/api/products/categories/route.ts
 import { NextResponse } from "next/server";
 import { connectToDB } from "@/lib/db/db";
 import productModel from "@/lib/models/product.model";
@@ -8,6 +7,11 @@ export async function GET() {
         await connectToDB();
 
         const categories = await productModel.aggregate([
+            {
+                $match: {
+                    category: { $exists: true, $ne: null }
+                }
+            },
             {
                 $group: {
                     _id: "$category",
@@ -31,12 +35,19 @@ export async function GET() {
             );
         }
 
-        return NextResponse.json({ msg: "success", categories });
+        return NextResponse.json(
+            { msg: "success", categories },
+            {
+                headers: {
+                    "Cache-Control": "no-store, no-cache, must-revalidate",
+                },
+            }
+        );
     } catch (error) {
         console.error(error);
         return NextResponse.json(
-            { msg: "Server error" },
-            { status: 500 }
+            { msg: "No categories found", categories: [] },
+            { status: 200 }
         );
     }
 }

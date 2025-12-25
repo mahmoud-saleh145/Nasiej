@@ -33,7 +33,6 @@ export default function ProductList() {
             const url = buildUrl();
             const res = await fetch(url, { cache: "no-store" });
             const data: APIResponse<Product> = await res.json();
-            console.log("dataaaaa", data)
             if (data.msg === "success" && data.products.length > 0) {
                 setEmpty(false)
                 setProducts(data.products);
@@ -60,7 +59,7 @@ export default function ProductList() {
 
     useEffect(() => {
         fetchProducts();
-    }, [searchParamsString, fetchProducts]);
+    }, [searchParamsString]);
 
     const handleReset = () => {
         const sp = new URLSearchParams();
@@ -103,35 +102,38 @@ export default function ProductList() {
 
                 ) : (
                     <div className="relative ">
-                        {loading ?
-                            <div className="absolute top-0 bottom-0 end-0 start-0 flex items-start mt-8 justify-center min-h-screen  opacity-50">
-                                <TailSpin
-                                    visible={true}
-                                    height="80"
-                                    width="80"
-                                    color="#3a2f25"
-                                    ariaLabel="tail-spin-loading"
-                                    radius="1"
-                                    wrapperStyle={{}}
-                                    wrapperClass=""
-                                />
-                            </div>
-                            :
-                            role !== "admin" ?
-                                <div className=" grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 ">
+                        <div className="min-h-[400px]">
 
-                                    {products.map((p) => (
-                                        <ProductCard key={p._id} product={p} />
-                                    ))}
+                            {loading ?
+                                <div className="absolute top-0 bottom-0 end-0 start-0 flex items-start mt-20 justify-center   opacity-50">
+                                    <TailSpin
+                                        visible={true}
+                                        height="80"
+                                        width="80"
+                                        color="#3a2f25"
+                                        ariaLabel="tail-spin-loading"
+                                        radius="1"
+                                        wrapperStyle={{}}
+                                        wrapperClass=""
+                                    />
                                 </div>
                                 :
-                                <div className=" grid grid-cols-2  lg:grid-cols-3 xl:grid-cols-4 gap-4 relative">
+                                role !== "admin" ?
+                                    <div className=" grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4  ">
 
-                                    {products.map((p) => (
-                                        <ProductCardAdmin key={p._id} product={p} />
-                                    ))}
-                                </div>
-                        }
+                                        {products.map((p) => (
+                                            <ProductCard key={p._id} product={p} />
+                                        ))}
+                                    </div>
+                                    :
+                                    <div className=" grid grid-cols-2  lg:grid-cols-3 xl:grid-cols-4 gap-4 relative ">
+
+                                        {products.map((p) => (
+                                            <ProductCardAdmin key={p._id} product={p} />
+                                        ))}
+                                    </div>
+                            }
+                        </div>
 
                         {pageInfo.totalPages >= 2 ?
                             <div className="flex justify-center items-center gap-2 mt-5">

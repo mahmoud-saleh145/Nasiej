@@ -14,8 +14,6 @@ import { IoMdClose } from "react-icons/io";
 import { useAuth } from "@/hooks/useAuth";
 
 
-
-
 export default function ProductCard({ product }: { product: ProductDetails }) {
     const role = useAuth((state) => state.role);
 
@@ -69,6 +67,8 @@ export default function ProductCard({ product }: { product: ProductDetails }) {
                                             fill
                                             className="object-contain select-none"
                                             sizes="(max-width: 768px) 100vw, 320px"
+                                            priority
+
                                         />
                                     </div>
                                 </SwiperSlide>
