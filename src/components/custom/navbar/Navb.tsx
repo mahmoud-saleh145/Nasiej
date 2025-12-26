@@ -77,7 +77,7 @@ export default function Navb() {
                             </Link>
 
                             <Navbar.Toggle
-                                aria-controls="basic-navbar-nav mt-2"
+                                aria-controls="basic-navbar-nav "
                                 className="border-0 focus:outline-none shadow-none"
                                 onClick={() => setExpanded(expanded ? false : true)}
                             />
@@ -183,7 +183,7 @@ export default function Navb() {
 
 
                             <Navbar.Toggle
-                                aria-controls="basic-navbar-nav mt-2"
+                                aria-controls="basic-navbar-nav"
                                 className="border-0 focus:outline-none shadow-none"
                                 onClick={() => setExpanded(expanded ? false : true)}
                             />

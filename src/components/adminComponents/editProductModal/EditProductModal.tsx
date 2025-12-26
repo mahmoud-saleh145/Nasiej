@@ -334,8 +334,7 @@ export default function EditProductModal({
                                                         alt={v.color}
                                                         fill
                                                         className="rounded mr-3 object-cover select-none"
-                                                        sizes="(max-width: 640px) 80px, (max-width: 768px) 100px, 112px"
-
+                                                        sizes="100vw"
                                                     />
                                                     <label className="absolute top-0 left-0 bg-white px-1 text-xs">
                                                         <input type="checkbox" checked={img.keep} onChange={() => toggleKeepOldImage(idx, i)} /> Keep

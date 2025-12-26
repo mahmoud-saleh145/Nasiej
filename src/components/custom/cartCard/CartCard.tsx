@@ -60,8 +60,7 @@ export default function CartCard() {
                                         alt={product.productId.name}
                                         className="rounded object-cover select-none"
                                         fill
-                                        sizes="(max-width: 640px) 80px, (max-width: 768px) 100px, 112px"
-                                    />
+                                        sizes="100vw" />
                                 </div>
                                 <div>
                                     <p className="m-0 fw-bold">{product.productId.name}</p>

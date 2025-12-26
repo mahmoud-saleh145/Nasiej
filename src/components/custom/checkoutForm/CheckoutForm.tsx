@@ -319,8 +319,7 @@ export default function CheckoutForm() {
                                                     fill
                                                     alt={item.productId.name}
                                                     className="object-cover rounded-lg select-none"
-                                                    sizes="(max-width: 768px) 20vw, 80px"
-
+                                                    sizes="100vw"
                                                 />
                                                 <h6 className="m-0 text-white rounded  absolute top-0 right-0 bg-black p-1 ">{item.quantity}</h6>
                                             </div>

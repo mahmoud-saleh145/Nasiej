@@ -71,8 +71,7 @@ const ImageSlider = forwardRef(({ variants }: { variants: Variant[] }, ref) => {
                                     setIsModalOpen(true);
                                 }}
                                 className="select-none object-contain cursor-pointer"
-                                sizes="(max-width: 768px) 100vw, 100vw"
-
+                                sizes="100vw"
                             />
                         </div>
                     </SwiperSlide>
@@ -97,8 +96,7 @@ const ImageSlider = forwardRef(({ variants }: { variants: Variant[] }, ref) => {
                                     alt={`thumb ${i + 1}`}
                                     fill
                                     className="object-cover rounded-2xl select-none"
-                                    sizes="(max-width: 768px) 100vw, 320px"
-
+                                    sizes="100vw"
                                 />
                                 {activeIndex === i && (
                                     <div className="absolute inset-0 bg-white/40 rounded-2xl"></div>

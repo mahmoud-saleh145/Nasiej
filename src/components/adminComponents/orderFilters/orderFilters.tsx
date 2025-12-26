@@ -170,8 +170,7 @@ export default function OrdersClient() {
                                                         alt={item.productId?.name || "product image"}
                                                         fill
                                                         className="rounded object-cover select-none"
-                                                        sizes="(max-width: 640px) 80px, (max-width: 768px) 100px, 112px"
-
+                                                        sizes="100vw"
 
                                                     />
                                                 </div>

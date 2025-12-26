@@ -1,65 +1,49 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import ProductCard from "../productCard/ProductCard";
-// import Loading from "@/app/loading";
 import ProductCardAdmin from "@/components/adminComponents/productCardAdmin/ProductCardAdmin";
 import AddProductModal from "@/components/adminComponents/addProductModel/AddProductModal";
 import { useAuth } from "@/hooks/useAuth";
 import { TailSpin } from "react-loader-spinner";
+import { useQuery } from "@tanstack/react-query";
 
 
 export default function ProductList() {
     const role = useAuth((state) => state.role);
     const searchParams = useSearchParams();
-    const [loading, setLoading] = useState(false);
-    const [products, setProducts] = useState<ProductDetails[]>([]);
-    const [pageInfo, setPageInfo] = useState({ page: 1, limit: 12, total: 0, totalPages: 0 });
+
     const [openAdd, setOpenAdd] = useState(false);
     const [empty, setEmpty] = useState(false);
 
-    const buildUrl = useCallback(() => {
+
+    const fetchProducts = async () => {
         const base = `/api/product/getProducts`;
-        const sp = new URLSearchParams(searchParams?.toString() || "");
-        if (!sp.get("page")) sp.set("page", String(pageInfo.page));
-        if (!sp.get("limit")) sp.set("limit", String(pageInfo.limit));
-        return `${base}?${sp.toString()}`;
-    }, [searchParams, pageInfo.page, pageInfo.limit]);
+        const sp = new URLSearchParams(searchParams.toString());
 
+        if (!sp.get("page")) sp.set("page", "1");
+        if (!sp.get("limit")) sp.set("limit", "12");
 
-    const fetchProducts = useCallback(async () => {
-        try {
-            setLoading(true);
-            const url = buildUrl();
-            const res = await fetch(url, { cache: "no-store" });
-            const data: APIResponse<Product> = await res.json();
-            if (data.msg === "success" && data.products.length > 0) {
-                setEmpty(false)
-                setProducts(data.products);
-                setPageInfo({
-                    page: data.page || 1,
-                    limit: data.limit || pageInfo.limit,
-                    total: data.total || 0,
-                    totalPages: data.totalPages || 0,
-                });
-            } else if (data.msg === "success" && data.products.length === 0) {
-                setEmpty(true)
-                setProducts([]);
-            }
-        } catch (err) {
-            console.error("fetch products error:", err);
-            setProducts([]);
-        } finally {
-            setLoading(false);
+        const res = await fetch(`${base}?${sp.toString()}`);
+        const data: APIResponse<Product> = await res.json();
+        if (!res.ok) {
+            throw new Error(data.msg || "Failed to fetch products");
         }
-    }, [buildUrl, pageInfo.limit]);
+        if (data.msg === "success") {
+            setEmpty(data.products.length === 0);
+        } else {
+            setEmpty(true);
+        }
+        return data as APIResponse<Product>;
+    };
 
+    const { data, isLoading, isFetching, } = useQuery<APIResponse<Product>>({
+        queryKey: ["products", searchParams.toString()],
+        queryFn: fetchProducts,
+        placeholderData: (prev) => prev,
 
-    const searchParamsString = searchParams?.toString();
-
-    useEffect(() => {
-        fetchProducts();
-    }, [searchParamsString]);
+    });
+    const products = data?.msg === "success" ? data.products : []
 
     const handleReset = () => {
         const sp = new URLSearchParams();
@@ -104,7 +88,7 @@ export default function ProductList() {
                     <div className="relative ">
                         <div className="min-h-[400px]">
 
-                            {loading ?
+                            {isLoading || isFetching ?
                                 <div className="absolute top-0 bottom-0 end-0 start-0 flex items-start mt-20 justify-center   opacity-50">
                                     <TailSpin
                                         visible={true}
@@ -121,21 +105,21 @@ export default function ProductList() {
                                 role !== "admin" ?
                                     <div className=" grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4  ">
 
-                                        {products.map((p) => (
+                                        {products?.map((p) => (
                                             <ProductCard key={p._id} product={p} />
                                         ))}
                                     </div>
                                     :
                                     <div className=" grid grid-cols-2  lg:grid-cols-3 xl:grid-cols-4 gap-4 relative ">
 
-                                        {products.map((p) => (
+                                        {products?.map((p) => (
                                             <ProductCardAdmin key={p._id} product={p} />
                                         ))}
                                     </div>
                             }
                         </div>
 
-                        {pageInfo.totalPages >= 2 ?
+                        {data?.msg === "success" && data?.totalPages >= 2 ?
                             <div className="flex justify-center items-center gap-2 mt-5">
                                 <button
                                     onClick={() => {
@@ -146,15 +130,15 @@ export default function ProductList() {
                                         window.history.pushState({}, "", url);
                                         window.dispatchEvent(new PopStateEvent("popstate"));
                                     }}
-                                    disabled={pageInfo.page <= 1}
+                                    disabled={data?.page <= 1}
                                     className="px-3 py-2 rounded-lg border disabled:opacity-50 hover:bg-buttons-hover"
                                 >
                                     Back
                                 </button>
                                 {(() => {
                                     const pages: (number | string)[] = [];
-                                    const total = pageInfo.totalPages;
-                                    const current = pageInfo.page;
+                                    const total = data?.totalPages;
+                                    const current = data?.page;
 
                                     if (total <= 7) {
 
@@ -184,7 +168,7 @@ export default function ProductList() {
                                                     window.history.pushState({}, "", url);
                                                     window.dispatchEvent(new PopStateEvent("popstate"));
                                                 }}
-                                                className={`px-3 py-2 rounded-lg border transition 
+                                                className={`px-3 py-2 rounded-lg border transition
                                       ${p === current
                                                         ? "bg-buttons text-white border-buttons"
                                                         : "hover:bg-gray-100"
@@ -202,13 +186,13 @@ export default function ProductList() {
                                 <button
                                     onClick={() => {
                                         const sp = new URLSearchParams(searchParams.toString());
-                                        const newPage = Math.min(pageInfo.totalPages, (Number(sp.get("page")) || 1) + 1);
+                                        const newPage = Math.min(data?.totalPages, (Number(sp.get("page")) || 1) + 1);
                                         sp.set("page", String(newPage));
                                         const url = `?${sp.toString()}`;
                                         window.history.pushState({}, "", url);
                                         window.dispatchEvent(new PopStateEvent("popstate"));
                                     }}
-                                    disabled={pageInfo.page >= pageInfo.totalPages}
+                                    disabled={data?.page >= data?.totalPages}
                                     className="px-3 py-2 rounded-lg border disabled:opacity-50 hover:bg-buttons-hover"
                                 >
                                     Next
@@ -223,3 +207,42 @@ export default function ProductList() {
         </div>
     );
 }
+
+
+
+
+// const buildUrl = useCallback(() => {
+//     const base = `/api/product/getProducts`;
+//     const sp = new URLSearchParams(searchParams?.toString() || "");
+//     if (!sp.get("page")) sp.set("page", String(pageInfo.page));
+//     if (!sp.get("limit")) sp.set("limit", String(pageInfo.limit));
+//     return `${base}?${sp.toString()}`;
+// }, [searchParams, pageInfo.page, pageInfo.limit]);
+
+
+// const fetchProducts = useCallback(async () => {
+//     try {
+//         setLoading(true);
+//         const url = buildUrl();
+//         const res = await fetch(url, { cache: "no-store" });
+//         const data: APIResponse<Product> = await res.json();
+//         if (data.msg === "success" && data.products.length > 0) {
+//             setEmpty(false)
+//             setProducts(data.products);
+//             setPageInfo({
+//                 page: data.page || 1,
+//                 limit: data.limit || pageInfo.limit,
+//                 total: data.total || 0,
+//                 totalPages: data.totalPages || 0,
+//             });
+//         } else if (data.msg === "success" && data.products.length === 0) {
+//             setEmpty(true)
+//             setProducts([]);
+//         }
+//     } catch (err) {
+//         console.error("fetch products error:", err);
+//         setProducts([]);
+//     } finally {
+//         setLoading(false);
+//     }
+// }, [buildUrl, pageInfo.limit]);

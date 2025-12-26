@@ -68,8 +68,7 @@ function WishlistItem({ wish }: { wish: WishList }) {
                                             alt={`product image ${i + 1}`}
                                             fill
                                             className="object-contain select-none"
-                                            sizes="(max-width: 768px) 100vw, 320px"
-                                        />
+                                            sizes="100vw" />
                                     </div>
                                 </SwiperSlide>
                             ))

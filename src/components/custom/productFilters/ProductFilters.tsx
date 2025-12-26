@@ -1,3 +1,5 @@
+
+
 "use client";
 import { SlidersHorizontal, ChevronDown } from "lucide-react";
 import { Fragment, useState, useEffect } from "react";
@@ -78,7 +80,7 @@ export default function ProductFilters() {
                 >
                     <div className="relative">
                         <ListboxButton className="w-full text-text border rounded-lg px-3 py-2 text-sm
-                             flex justify-between items-center bg-background-light shadow-sm 
+                             flex justify-between items-center bg-background-light shadow-sm
                              outline-none focus:outline-none focus:ring-0 focus:border-gray-400">
                             {selectedCategory || "All"}
                             <ChevronDown size={16} />

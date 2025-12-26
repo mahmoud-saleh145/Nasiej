@@ -42,8 +42,7 @@ export default function Invoice({ order }: { order?: CompleteOrder }) {
                                         alt={item.productId.name}
                                         fill
                                         className=" object-cover rounded-lg border select-none"
-                                        sizes="(max-width: 768px) 20vw, 80px"
-
+                                        sizes="100vw"
                                     />
                                     <span className="absolute -top-2 -right-2 bg-black text-white text-xs px-2 py-1 rounded-lg">
                                         {item.quantity}
