@@ -1,7 +1,7 @@
 import ProductCard from "@/components/custom/productCard/ProductCard";
 
 export default async function SpecificBrand({ params }: { params: { brand: string } }) {
-    const brand = params.brand;
+    const brand = decodeURIComponent(params.brand);
 
     async function fetchProductsByBrand() {
         const res = await fetch(`${process.env.API}/api/product/getBrand/${brand}`, { cache: 'no-store' });

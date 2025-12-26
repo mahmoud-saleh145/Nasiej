@@ -1,7 +1,7 @@
 import ProductCard from "@/components/custom/productCard/ProductCard";
 export default async function SpecificCategory({ params }: { params: { category: string } }) {
 
-    const category = params.category
+    const category = decodeURIComponent(params.category)
     async function fetchProductsByCategory() {
         const res = await fetch(`${process.env.API}/api/product/getCategory/${category}`, { cache: 'no-store' });
         const data: APIResponse<Product> = await res.json();

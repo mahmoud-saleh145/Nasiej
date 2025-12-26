@@ -14,6 +14,7 @@ import {
 
 import Image from "next/image";
 import { LucideZoomIn, LucideZoomOut } from "lucide-react";
+import { IoMdClose } from "react-icons/io";
 
 const ImageSlider = forwardRef(({ variants }: { variants: Variant[] }, ref) => {
     const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
@@ -108,52 +109,53 @@ const ImageSlider = forwardRef(({ variants }: { variants: Variant[] }, ref) => {
             </div>
 
             {isModalOpen && modalImage && (
-                <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center mt-20">
-                    <button
-                        className="absolute top-4 right-4 text-white text-3xl"
-                        onClick={() => setIsModalOpen(false)}
-                    >
-                        ✕
-                    </button>
+                <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center pt-20"
+                    onClick={() => setIsModalOpen(false)}
+                >
+                    <div className=""  >
 
-                    <TransformWrapper
-                        initialScale={1}
-                        minScale={0.5}
-                        maxScale={3}
-                        wheel={{ step: 0.1 }}
-                        doubleClick={{ disabled: true }}
-                    >
-                        {({ zoomIn, zoomOut, resetTransform }) => (
-                            <>
-                                {/* Controls */}
-                                <div className="absolute bottom-6 flex gap-4 z-10">
-                                    <button aria-label="Zoom in" onClick={() => zoomIn()} className="px-4 py-2 text-2xl  bg-white rounded">
-                                        <LucideZoomIn />
+                        <IoMdClose size={50} onClick={() => setIsModalOpen(false)} className="absolute top-24 right-4 p-1 text-white cursor-pointer" />
+                        <TransformWrapper
+                            minScale={1}
+                            maxScale={3}
+                            wheel={{ step: 0.1 }}
+                            doubleClick={{ disabled: true }}
+                        >
+                            {({ zoomIn, zoomOut, resetTransform }) => (
+                                <>
+                                    {/* Controls */}
+                                    <div className="absolute bottom-6 flex gap-4 z-10" >
+                                        <button aria-label="Zoom in" onClick={() => zoomIn()} className="px-4 py-2 text-2xl  bg-white rounded">
+                                            <LucideZoomIn />
 
-                                    </button>
-                                    <button aria-label="Zoom out" onClick={() => zoomOut()} className="px-4 py-2 text-2xl bg-white rounded">
-                                        <LucideZoomOut />
+                                        </button>
+                                        <button aria-label="Zoom out" onClick={() => zoomOut()} className="px-4 py-2 text-2xl bg-white rounded">
+                                            <LucideZoomOut />
 
-                                    </button>
-                                    <button onClick={() => resetTransform()} className="px-4 py-2 text-xl bg-white rounded">
-                                        Reset
-                                    </button>
-                                </div>
-
-                                {/* Image */}
-                                <TransformComponent>
-                                    <div className="relative w-[90vw] h-[80vh]">
-                                        <Image
-                                            src={modalImage}
-                                            alt="zoomed image"
-                                            fill
-                                            className="object-contain"
-                                        />
+                                        </button>
+                                        <button onClick={() => resetTransform()} className="px-4 py-2 text-xl bg-white rounded">
+                                            Reset
+                                        </button>
                                     </div>
-                                </TransformComponent>
-                            </>
-                        )}
-                    </TransformWrapper>
+
+                                    {/* Image */}
+                                    <TransformComponent>
+                                        <div className="relative w-[90vw] h-[80vh]" onClick={(e) => e.stopPropagation()}>
+                                            <Image
+                                                src={modalImage}
+                                                alt="zoomed image"
+                                                fill
+                                                className="object-contain"
+                                            />
+                                        </div>
+                                    </TransformComponent>
+                                </>
+                            )}
+                        </TransformWrapper>
+                    </div>
+
+
+
                 </div>
             )}
 

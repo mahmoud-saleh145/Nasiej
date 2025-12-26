@@ -19,12 +19,9 @@ export default function ProductDetailsCard({
 
 }) {
     const [selectedVariant, setSelectedVariant] = useState<Variant | null>(null);
-    console.log("selectedVariant", selectedVariant);
-
     // eslint-disable-next-line prefer-const
     let [quantity, setQuantity] = useState<number>(1)
     const sliderRef = useRef<SwiperType | null>(null);
-    console.log(quantity);
 
     useEffect(() => {
         if (!selectedVariant || !sliderRef.current) return;
