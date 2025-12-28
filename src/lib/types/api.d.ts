@@ -67,7 +67,9 @@ interface Order {
     paymentMethod: string;
     orderNumber: number;
     randomId: string;
+    couponCode?: string;
     createdAt: string;
+    updatedAt?: string;
 }
 
 interface OrderProduct {

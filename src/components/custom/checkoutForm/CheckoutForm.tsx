@@ -42,6 +42,10 @@ export default function CheckoutForm() {
     const [orderDone, setOrderDone] = useState(false);
     const [order, setOrder] = useState<CompleteOrder>();
     const [open, setOpen] = useState(false);
+    const [couponCode, setCouponCode] = useState("");
+    const [discount, setDiscount] = useState(0);
+    const [couponError, setCouponError] = useState("");
+    const [couponLoading, setCouponLoading] = useState(false);
 
     const { data: cart, isLoading, isError } = useCart();
     const emptyCart = useEmptyCart();
@@ -67,6 +71,39 @@ export default function CheckoutForm() {
         phone: yup.string().required().matches(/^(010|011|012|015)[0-9]{8}$/),
     });
 
+    const applyCoupon = async () => {
+        if (!couponCode) return;
+
+        try {
+            setCouponLoading(true);
+            setCouponError("");
+
+            const res = await fetch("/api/coupon/validate", {
+                method: "POST",
+                headers: JSON_HEADER,
+                body: JSON.stringify({
+                    couponCode,
+                    email: formik.values.email,
+                    subtotal: cart?.subtotal,
+                }),
+            });
+
+            const data = await res.json();
+            console.log(data)
+            if (data.msg !== "success") {
+                setDiscount(0);
+                setCouponError("Invalid or expired coupon");
+                return;
+            }
+
+            setDiscount(data.discount);
+        } catch {
+            setCouponError("Something went wrong");
+        } finally {
+            setCouponLoading(false);
+        }
+    };
+
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -87,6 +124,7 @@ export default function CheckoutForm() {
                 credentials: "include",
                 body: JSON.stringify({
                     ...values,
+                    couponCode,
                 }),
             })
             const data: APIResponse<OrderResponse> = await res.json();
@@ -366,6 +404,40 @@ export default function CheckoutForm() {
                                 </div>
                             </div>
 
+
+                            <div className="space-y-2 mb-3">
+                                <label className="text-sm font-medium">Discount code</label>
+
+                                <div className="flex gap-2">
+                                    <input
+                                        type="text"
+                                        value={couponCode}
+                                        onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
+                                        placeholder="Enter coupon"
+                                        className="flex-1 border rounded-lg p-2"
+                                    />
+
+                                    <button
+                                        type="button"
+                                        disabled={couponLoading}
+                                        onClick={applyCoupon}
+                                        className="px-4 rounded-lg bg-buttons hover:bg-buttons-hover text-text"
+                                    >
+                                        Apply
+                                    </button>
+                                </div>
+
+                                {couponError && <p className="text-red-500 text-sm">{couponError}</p>}
+
+                                {discount > 0 && (
+                                    <p className="text-green-600 text-sm">
+                                        🎉 Discount applied: -{discount} LE
+                                    </p>
+                                )}
+                            </div>
+
+
+
                             {/* ----- Subtotal ----- */}
                             <div className="flex justify-between py-2 border-b">
                                 <span className="text-gray-600">
@@ -373,6 +445,12 @@ export default function CheckoutForm() {
                                 </span>
                                 <span className="font-medium">{cart?.subtotal} LE</span>
                             </div>
+                            {discount > 0 && (
+                                <div className="flex justify-between py-2 text-green-600 border-b">
+                                    <span>Discount</span>
+                                    <span>-{discount} LE</span>
+                                </div>
+                            )}
 
                             {/* ----- Shipping ----- */}
                             <div className="flex justify-between py-2 border-b">
@@ -385,7 +463,7 @@ export default function CheckoutForm() {
                             {/* ----- Total ----- */}
                             <div className="flex justify-between py-3 text-lg font-semibold">
                                 <span>Total</span>
-                                <span>{cart?.subtotal ?? 0 + shippingCost} LE</span>
+                                {(cart?.subtotal ?? 0) + shippingCost - discount} LE
                             </div>
                         </div>
                         {err && <div className="alert alert-danger mt-3">{err}</div>}
@@ -400,7 +478,7 @@ export default function CheckoutForm() {
                     </div>
                 </div>
                 :
-                <Invoice order={order!} />
+                <Invoice order={order!} discount={discount} />
             }
         </div>
     );

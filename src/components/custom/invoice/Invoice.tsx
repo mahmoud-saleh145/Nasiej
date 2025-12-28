@@ -3,7 +3,7 @@ import LoadingPage from "@/components/common/LoadingPage";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Invoice({ order }: { order?: CompleteOrder }) {
+export default function Invoice({ order, discount }: { order?: CompleteOrder, discount?: number }) {
     if (!order) return <LoadingPage />;
 
     const { order: ord } = order;
@@ -93,7 +93,12 @@ export default function Invoice({ order }: { order?: CompleteOrder }) {
                     </span>
                     <span className="font-medium text-gray-800">{ord.subtotal} LE</span>
                 </div>
-
+                {discount && discount > 0 && (
+                    <div className="flex justify-between py-2 text-green-600 border-b">
+                        <span>Discount</span>
+                        <span>-{discount} LE</span>
+                    </div>
+                )}
                 {/* Shipping */}
                 <div className="flex justify-between py-3 border-b">
                     <span className="text-gray-600">Shipping fee</span>

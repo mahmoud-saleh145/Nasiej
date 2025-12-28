@@ -11,9 +11,7 @@ import userModel from "@/lib/models/user.model";
 import { generateInvoice } from "@/lib/utils/generateInvoice";
 import { sendEmail } from "@/lib/utils/sendEmail";
 import { validateOrderData } from "@/lib/utils/validateOrderData";
-
-
-
+import couponModel from "@/lib/models/coupon.model";
 
 export async function POST(req: NextRequest) {
     try {
@@ -21,7 +19,7 @@ export async function POST(req: NextRequest) {
         const sessionId = req.cookies.get("sessionId")?.value;
         const userId = await getUserFromToken(req);
         const body = (await req.json()) as Order;
-        const { email, firstName, lastName, address, phone, city, governorate, paymentMethod = "cash" } = body
+        const { email, firstName, lastName, address, phone, city, governorate, paymentMethod = "cash", couponCode } = body
         validateOrderData(body);
 
         if (!sessionId && !userId) {
@@ -69,14 +67,34 @@ export async function POST(req: NextRequest) {
         }
 
         const shippingCost = calculateShipping(governorate);
-
         const subtotal = cart.items.reduce(
             (acc: number, item: CartItem) => acc + getFinalPrice(item.productId) * item.quantity,
             0
         );
 
-        const totalPrice = subtotal + shippingCost;
+        let discount = 0;
 
+        if (couponCode) {
+            const coupon = await couponModel.findOne({
+                code: couponCode,
+                userEmail: email,
+                isUsed: false,
+                expiresAt: { $gt: new Date() }
+            });
+
+            if (!coupon) {
+                return NextResponse.json(
+                    { msg: "Invalid or expired coupon" },
+                    { status: 400 }
+                );
+            }
+
+            discount = (subtotal * coupon.discountValue) / 100;
+
+            coupon.isUsed = true;
+            await coupon.save();
+        }
+        const totalPrice = Math.floor(subtotal + shippingCost - discount);
 
         const orderNumber = await orderCounter("order");
         const randomId = generateRandomCode();

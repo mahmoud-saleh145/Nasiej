@@ -116,8 +116,7 @@ export default function LoginPopup({ open, onClose }: { open: boolean, onClose: 
                         ✕
                     </button>
 
-                    <h2 className="text-text text-2xl font-bold mb-6">Sign In</h2>
-
+                    <h2 className="text-text text-xl font-bold mb-6">Sign In for the first time and get 10% discount🎉.</h2>
                     <form onSubmit={formik.handleSubmit}>
 
                         <div className="mb-5">

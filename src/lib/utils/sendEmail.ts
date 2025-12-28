@@ -1,14 +1,8 @@
-"use server";
-import nodemailer from "nodemailer";
+import { getTransporter } from "./transporter";
+
 
 export async function sendEmail(to: string, subject: string, html: string) {
-    const transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-            user: process.env.emailSender,
-            pass: process.env.emailSenderPassword,
-        },
-    });
+    const transporter = await getTransporter();
 
     const info = await transporter.sendMail({
         from: `"Nasiej" <${process.env.emailSender}>`,
@@ -16,6 +10,8 @@ export async function sendEmail(to: string, subject: string, html: string) {
         subject,
         html,
     });
-
-    return info.accepted.length > 0;
+    return {
+        success: info.accepted.length > 0,
+        messageId: info.messageId,
+    };
 }
