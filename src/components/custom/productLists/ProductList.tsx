@@ -20,10 +20,8 @@ export default function ProductList() {
     const fetchProducts = async () => {
         const base = `/api/product/getProducts`;
         const sp = new URLSearchParams(searchParams.toString());
-
         if (!sp.get("page")) sp.set("page", "1");
         if (!sp.get("limit")) sp.set("limit", "12");
-
         const res = await fetch(`${base}?${sp.toString()}`);
         const data: APIResponse<Product> = await res.json();
         if (!res.ok) {
@@ -86,7 +84,7 @@ export default function ProductList() {
 
                 ) : (
                     <div className="relative ">
-                        <div className="min-h-[400px]">
+                        <div className="min-h-screen">
 
                             {isLoading || isFetching ?
                                 <div className="absolute top-0 bottom-0 end-0 start-0 flex items-start mt-20 justify-center   opacity-50">

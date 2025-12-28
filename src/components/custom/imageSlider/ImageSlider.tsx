@@ -110,11 +110,10 @@ const ImageSlider = forwardRef(({ variants }: { variants: Variant[] }, ref) => {
 
             {isModalOpen && modalImage && (
                 <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center pt-20"
-                    onClick={() => setIsModalOpen(false)}
                 >
                     <div className=""  >
 
-                        <IoMdClose size={50} onClick={() => setIsModalOpen(false)} className="absolute top-24 right-4 p-1 text-white cursor-pointer" />
+                        <IoMdClose size={50} onClick={() => setIsModalOpen(false)} className="absolute z-[60] top-24 right-4 p-1 text-white cursor-pointer" />
                         <TransformWrapper
                             minScale={1}
                             maxScale={3}
@@ -123,24 +122,10 @@ const ImageSlider = forwardRef(({ variants }: { variants: Variant[] }, ref) => {
                         >
                             {({ zoomIn, zoomOut, resetTransform }) => (
                                 <>
-                                    {/* Controls */}
-                                    <div className="absolute bottom-6 flex gap-4 z-10" >
-                                        <button aria-label="Zoom in" onClick={() => zoomIn()} className="px-4 py-2 text-2xl  bg-white rounded">
-                                            <LucideZoomIn />
-
-                                        </button>
-                                        <button aria-label="Zoom out" onClick={() => zoomOut()} className="px-4 py-2 text-2xl bg-white rounded">
-                                            <LucideZoomOut />
-
-                                        </button>
-                                        <button onClick={() => resetTransform()} className="px-4 py-2 text-xl bg-white rounded">
-                                            Reset
-                                        </button>
-                                    </div>
 
                                     {/* Image */}
                                     <TransformComponent>
-                                        <div className="relative w-[90vw] h-[80vh]" onClick={(e) => e.stopPropagation()}>
+                                        <div className="relative w-[90vw] h-[70vh] mb-3">
                                             <Image
                                                 src={modalImage}
                                                 alt="zoomed image"
@@ -149,6 +134,24 @@ const ImageSlider = forwardRef(({ variants }: { variants: Variant[] }, ref) => {
                                             />
                                         </div>
                                     </TransformComponent>
+                                    <div className="flex justify-center mt-3">
+
+                                        <div className="  flex gap-4 " >
+
+                                            <button aria-label="Zoom in" onClick={() => zoomIn()} className="px-4 py-2 text-2xl  bg-white rounded">
+                                                <LucideZoomIn />
+
+                                            </button>
+                                            <button aria-label="Zoom out" onClick={() => zoomOut()} className="px-4 py-2 text-2xl bg-white rounded">
+                                                <LucideZoomOut />
+
+                                            </button>
+                                            <button onClick={() => resetTransform()} className="px-4 py-2 text-xl bg-white rounded">
+                                                Reset
+                                            </button>
+                                        </div>
+
+                                    </div>
                                 </>
                             )}
                         </TransformWrapper>
