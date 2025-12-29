@@ -5,7 +5,6 @@ import productModel from "@/lib/models/product.model";
 export async function GET() {
     try {
         await connectToDB();
-        const p = await productModel.find()
         const categories = await productModel.aggregate([
             {
                 $match: {

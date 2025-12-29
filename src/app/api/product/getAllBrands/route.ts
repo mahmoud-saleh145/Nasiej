@@ -1,4 +1,3 @@
-// app/api/products/brands/route.ts
 import { NextResponse } from "next/server";
 import { connectToDB } from "@/lib/db/db";
 import productModel from "@/lib/models/product.model";
@@ -8,6 +7,12 @@ export async function GET() {
         await connectToDB();
 
         const brands = await productModel.aggregate([
+            {
+                $match: {
+                    brand: { $exists: true, $ne: null },
+                    hide: false
+                }
+            },
             {
                 $group: {
                     _id: "$brand",
