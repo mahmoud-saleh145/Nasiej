@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { NextResponse } from "next/server";
 import { connectToDB } from "@/lib/db/db";
 import productModel from "@/lib/models/product.model";
@@ -39,7 +40,7 @@ export async function GET() {
             { msg: "success", categories },
             {
                 headers: {
-                    "Cache-Control": "no-store, no-cache, must-revalidate",
+                    "Cache-Control": "no-store",
                 },
             }
         );
