@@ -7,6 +7,7 @@ import Footer from './../components/custom/footer/Footer';
 import QueryProvider from "@/components/provider/QueryProvider";
 import ToasterProvider from "@/components/provider/ToasterProvider";
 import AuthProvider from './../components/provider/AuthProvider';
+import Script from "next/script";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -31,6 +32,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-GS24X8XWHG"
+          strategy="afterInteractive"
+        />
+        <Script id="ga4" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-GS24X8XWHG');
+          `}
+        </Script>
+      </head>
       <body className={`bg-background ${geistSans.variable} ${geistMono.variable} antialiased`}>
         <QueryProvider>
           <AuthProvider>
