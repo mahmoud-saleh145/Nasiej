@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import localFont from "next/font/local";
 import "./globals.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -59,6 +60,7 @@ export default function RootLayout({
             <ToasterProvider />
           </AuthProvider>
         </QueryProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
