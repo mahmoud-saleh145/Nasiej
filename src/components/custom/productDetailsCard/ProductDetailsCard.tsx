@@ -1,5 +1,4 @@
 "use client";
-
 import AddToCartButton from "@/components/common/AddToCartButton";
 import AddToWishListButton from "@/components/common/AddToWishListButton";
 import ImageSlider from "../imageSlider/ImageSlider";
@@ -8,7 +7,7 @@ import { IoMdClose } from "react-icons/io";
 import type { Swiper as SwiperType } from "swiper";
 import { useAutoDirection } from "@/hooks/useAutoDirection";
 import { FaMinus, FaPlus } from "react-icons/fa";
-
+import TermsAccordion from "../polices/TermsAccordion";
 export default function ProductDetailsCard({
     details,
     variants,
@@ -56,9 +55,9 @@ export default function ProductDetailsCard({
             <div className="col-md-7">
                 <div className="flex justify-between items-center">
                     <div className="">
-                        <span className="fw-bold fs-5 text-text mt-1">
+                        <span className="fw-bold text-2xl text-text ">
                             {details.discount && details.discount > details.raise ? (
-                                <small className="text-text-secondary me-1">
+                                <small className="text-text-secondary me-1 ">
                                     <del>{details.price}</del>
                                 </small>
                             ) : details.discount && details.discount < details.raise ? (
@@ -81,20 +80,20 @@ export default function ProductDetailsCard({
                             LE
                         </span>
 
-                        <h4 className="mb-3 text-text fw-bold">{details?.name}</h4>
+                        <div className="mt-2">
+                            <p className="text-text text-sm m-0">
+                                category: <strong>{details?.category}</strong>
+                            </p>
+                            <p className="text-text text-sm m-0">
+                                brand: <strong>{details?.brand}</strong>
+                            </p>
+                        </div>
                     </div>
+                    <h4 className="m-0 text-text fw-bold align-self-start" dir={useAutoDirection(details?.name ?? "")}>{details?.name}</h4>
 
-                    <div className="align-self-start">
-                        <p className="text-text text-sm m-0">
-                            category: <strong>{details?.category}</strong>
-                        </p>
-                        <p className="text-text text-sm m-0">
-                            brand: <strong>{details?.brand}</strong>
-                        </p>
-                    </div>
                 </div>
 
-                <p dir={useAutoDirection(details?.description ?? "")} className="text-text whitespace-pre-line">{details?.description}</p>
+                <p dir={useAutoDirection(details?.description ?? "")} className="text-text whitespace-pre-line my-3">{details?.description}</p>
 
                 <div className="flex items-center gap-3 mt-2 flex-wrap mb-4">
                     {variants.map((v, index) => {
@@ -157,6 +156,8 @@ export default function ProductDetailsCard({
                     />
                 </div>
             </div>
+            {/* 📝 TERMS AND POLICIES */}
+            <TermsAccordion />
         </div>
     );
 }

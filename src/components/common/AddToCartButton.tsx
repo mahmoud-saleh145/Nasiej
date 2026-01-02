@@ -22,6 +22,10 @@ export default function AddToCartButton({
     const handleAddToCart = () => {
         if (!selectedColor) {
             setShowError(true);
+
+            setTimeout(() => {
+                setShowError(false);
+            }, 4000);
             return;
         }
 
@@ -52,11 +56,24 @@ export default function AddToCartButton({
                     {isPending ? "Adding..." : "Add to cart"}
                 </button>
 
-                {showError && !selectedColor && (
+
+                <div
+                    className={`absolute -bottom-5 left-0
+                    transition-all duration-500 ease-out
+                    ${showError
+                            ? "opacity-100 translate-y-0"
+                            : "opacity-0 translate-y-3 pointer-events-none"
+                        }`}
+                >
+                    <p className="text-xs md:text-sm text-red-500 bg-background px-2 py-[2px] rounded-md shadow-sm">
+                        Please select a color first
+                    </p>
+                </div>
+                {/* {showError && !selectedColor && (
                     <p className="absolute -bottom-6 left-0 text-xs md:text-sm text-red-500 bg-background px-2 py-[2px] rounded-md shadow-sm">
                         Please select a color first
                     </p>
-                )}
+                )} */}
             </div>
         </div>
     );
