@@ -36,6 +36,17 @@ export default function Navb() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, [hasHydrated]);
 
+    useEffect(() => {
+        if (!hasHydrated) return;
+        if (loggedIn) return;
+
+        const timer = setTimeout(() => {
+            setOpen(true);
+        }, 3000);
+
+        return () => clearTimeout(timer);
+    }, [hasHydrated, loggedIn]);
+
     const isActive = (path: string) => pathname === path;
     return (
         <>
