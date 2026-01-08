@@ -208,6 +208,8 @@ export default function Navb() {
                                     { href: "/category", label: "Category" },
                                     { href: "/search", label: "Search" },
                                     { href: "/admin/orders", label: "Orders" },
+                                    { href: "/admin/userCarts", label: "Carts" },
+                                    { href: "/admin/allUsers", label: "Users" },
                                 ].map((item) => (
                                     <Link
                                         key={item.href}

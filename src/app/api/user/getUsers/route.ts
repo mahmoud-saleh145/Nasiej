@@ -6,11 +6,11 @@ import { NextResponse } from "next/server";
 export async function GET() {
     try {
         await connectToDB()
-        const users = await userModel.find().populate("orders.orderId");
+        const users = await userModel.find({ role: "user" }).populate("orders.orderId");
 
         return NextResponse.json({
             msg: "success",
-            users: users,
+            user: users,
         });
     } catch (err) {
         console.log(err);

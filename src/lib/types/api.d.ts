@@ -161,7 +161,7 @@ interface CartItem {
 
 interface EditCart {
     msg: "success"
-    cart: Cart
+    cart: Cart[]
 }
 interface OutOfStock {
     msg: "No more stock available for this product"
