@@ -35,7 +35,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Meta Pixel */}
+
+        {/* Meta Pixel Code */}
         <Script
           id="meta-pixel"
           strategy="afterInteractive"
@@ -54,6 +55,7 @@ export default function RootLayout({
             `,
           }}
         />
+
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-GS24X8XWHG"
           strategy="afterInteractive"
