@@ -1,3 +1,6 @@
+import getFinalPrice from "@/lib/utils/getFinalPrice";
+import Image from "next/image";
+
 export default async function userCarts() {
 
     const res = await fetch(`${process.env.API}/api/cart/getCarts`, {
@@ -9,6 +12,7 @@ export default async function userCarts() {
     }
 
     const data: EditCart = await res.json();
+
     const carts = data.cart;
     return (
         <div className="container mx-auto py-6 text-text">
@@ -35,8 +39,8 @@ export default async function userCarts() {
                         0
                     );
 
-                    const totalPrice = cart.items.reduce(
-                        (sum, item) => sum + item.quantity * item.productId.price,
+                    const subtotal = cart.items.reduce(
+                        (acc: number, item: CartItem) => acc + getFinalPrice(item.productId) * item.quantity,
                         0
                     );
 
@@ -59,13 +63,36 @@ export default async function userCarts() {
                                     <p className="text-sm opacity-80 m-0">
                                         {ownerLabel}
                                     </p>
+
+                                    <p className="text-sm opacity-80 m-0">
+                                        created at:{" "}
+                                        {new Date(cart.createdAt)
+                                            .toISOString()
+                                            .split("T")[0]}{" "}
+                                        {new Date(cart.createdAt).toLocaleString("en-US", {
+                                            hour: "2-digit",
+                                            minute: "2-digit",
+                                            hour12: true,
+                                        })}
+                                    </p>
+                                    <p className="text-sm opacity-80 m-0">
+                                        updated at:{" "}
+                                        {new Date(cart.updatedAt)
+                                            .toISOString()
+                                            .split("T")[0]}{" "}
+                                        {new Date(cart.updatedAt).toLocaleString("en-US", {
+                                            hour: "2-digit",
+                                            minute: "2-digit",
+                                            hour12: true,
+                                        })}
+                                    </p>
                                     <p className="text-sm opacity-80 m-0">
                                         Items: {totalItems}
                                     </p>
                                 </div>
 
                                 <div className="font-bold text-lg">
-                                    Total: {totalPrice} LE
+                                    Total: {subtotal} LE
                                 </div>
                             </div>
 
@@ -79,22 +106,46 @@ export default async function userCarts() {
                                             : ""
                                             }`}
                                     >
-                                        <div>
-                                            <p className="font-semibold m-0">
-                                                {item.productId.name}
-                                            </p>
-                                            <p className="text-sm opacity-80 m-0">
-                                                Price: {item.productId.price} LE
-                                            </p>
+                                        <div className="flex items-center">
+
+                                            <div className="relative w-28 h-28 me-3 ">
+
+                                                <Image
+                                                    src={
+                                                        item.productId.variants.find(v => v.color === item.color)?.images?.[0]?.url
+                                                        || item.productId.variants[0]?.images?.[0]?.url
+                                                    }
+                                                    alt={item.productId.name}
+                                                    className="rounded object-cover select-none"
+                                                    fill
+                                                    sizes="100vw" />
+                                            </div>
+                                            <div>
+                                                <p className="font-semibold m-0">
+                                                    {item.productId.name}
+                                                </p>
+                                                <span className="fw-bold text-base text-text mt-3">
+
+                                                    {item.productId.discount && item.productId.discount > item.productId.raise ?
+
+                                                        <small className="text-text-secondary me-1 "><del>{item.productId.price}</del></small>
+                                                        :
+                                                        item.productId.discount && item.productId.discount < item.productId.raise ?
+                                                            <small className="text-text-secondary me-1 "><del>{item.productId.price + (item.productId.price * item.productId.raise) / 100}</del></small>
+                                                            : ''
+                                                    }
+
+                                                    {item.productId.finalPrice ?? item.productId.price} LE
+
+                                                </span>
+                                            </div>
                                         </div>
 
                                         <div className="text-right">
                                             <p className="m-0">
                                                 Qty: {item.quantity}
                                             </p>
-                                            <p className="m-0 font-semibold">
-                                                {item.quantity * item.productId.price} LE
-                                            </p>
+
                                         </div>
                                     </div>
                                 ))}

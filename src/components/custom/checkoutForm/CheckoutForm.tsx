@@ -52,11 +52,11 @@ export default function CheckoutForm() {
     const removeProduct = useRemoveProduct();
 
 
-    useEffect(() => {
-        if (!orderDone && cart && cart.totalQuantity === 0) {
-            router.push('/', { scroll: false });
-        }
-    }, [cart, orderDone, router]);
+    // useEffect(() => {
+    //     if (!orderDone && cart && cart.totalQuantity === 0) {
+    //         router.push('/', { scroll: false });
+    //     }
+    // }, [cart, orderDone, router]);
 
 
 
@@ -382,15 +382,8 @@ export default function CheckoutForm() {
                                                             : ''
                                                     }
 
-                                                    {item.productId.discount && item.productId.raise
-                                                        ? item.productId.price -
-                                                        (item.productId.price * item.productId.discount) / 100 +
-                                                        (item.productId.price * item.productId.raise) / 100
-                                                        : item.productId.raise ?
-                                                            item.productId.price + (item.productId.price * item.productId.raise) / 100
-                                                            : item.productId.discount
-                                                                ? item.productId.price - (item.productId.price * item.productId.discount) / 100
-                                                                : item.productId.price} LE
+                                                    {item.productId.finalPrice ?? item.productId.price} LE
+
                                                 </span>
                                                 <button aria-label="Remove item" className="text-danger text-lg border-0 bg-transparent ms-auto"
                                                     disabled={removeProduct.isPending}

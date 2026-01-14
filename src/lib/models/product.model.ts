@@ -54,6 +54,10 @@ const productSchema = new Schema({
         type: Boolean,
         default: false
     },
+    priceBeforeDiscount: {
+        type: Number,
+        default: 0
+    },
     finalPrice: {
         type: Number,
         default: undefined
@@ -67,8 +71,15 @@ productSchema.pre("save", function () {
     const price = this.price || 0;
     const raise = this.raise || 0;
     const discount = this.discount || 0;
-    this.finalPrice = price + (price * raise) / 100 - (price * discount) / 100;
 
+    const priceAfterRaise = price + (price * raise) / 100;
+
+    this.priceBeforeDiscount = priceAfterRaise;
+
+    const discountAmount = (priceAfterRaise * discount) / 100;
+    const finalPrice = priceAfterRaise - discountAmount;
+
+    this.finalPrice = Math.ceil(finalPrice / 10) * 10;
 });
 
 const productModel = models.product || model('product', productSchema);

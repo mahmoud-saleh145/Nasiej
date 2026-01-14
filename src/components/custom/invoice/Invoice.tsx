@@ -72,15 +72,8 @@ export default function Invoice({ order, discount }: { order?: CompleteOrder, di
                                         : ''
                                 }
 
-                                {item.productId.discount && item.productId.raise
-                                    ? item.productId.price -
-                                    (item.productId.price * item.productId.discount) / 100 +
-                                    (item.productId.price * item.productId.raise) / 100
-                                    : item.productId.raise ?
-                                        item.productId.price + (item.productId.price * item.productId.raise) / 100
-                                        : item.productId.discount
-                                            ? item.productId.price - (item.productId.price * item.productId.discount) / 100
-                                            : item.productId.price} LE
+                                {item.productId.finalPrice ?? item.productId.price} LE
+
                             </span>
                         </div>
                     ))}
@@ -93,12 +86,12 @@ export default function Invoice({ order, discount }: { order?: CompleteOrder, di
                     </span>
                     <span className="font-medium text-gray-800">{ord.subtotal} LE</span>
                 </div>
-                {discount && discount > 0 && (
+                {discount && discount > 0 ? (
                     <div className="flex justify-between py-2 text-green-600 border-b">
                         <span>Discount</span>
                         <span>-{discount} LE</span>
                     </div>
-                )}
+                ) : ""}
                 {/* Shipping */}
                 <div className="flex justify-between py-3 border-b">
                     <span className="text-gray-600">Shipping fee</span>

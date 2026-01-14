@@ -25,13 +25,22 @@ export default async function allUsers() {
                     >
                         {/* User Info */}
                         <div className="mb-4">
-                            <h2 className="text-xl font-semibold">
-                                {user.firstName} {user.lastName}
-                            </h2>
-                            <p className="m-0 text-sm opacity-80">Email: {user.email}</p>
-                            <p className="m-0 text-sm opacity-80">Phone: {user.phone}</p>
                             <p className="m-0 text-sm opacity-80">
                                 User ID: {user._id}
+                            </p>
+                            <p className="m-0 text-sm opacity-80">Email: {user.email}</p>
+                            <p className="m-0 text-sm opacity-80">name: {user.firstName} {user.lastName}</p>
+                            <p className="m-0 text-sm opacity-80">Phone: {user.phone}</p>
+                            <p className="text-sm opacity-80 m-0">
+                                created at:{" "}
+                                {new Date(user.createdAt)
+                                    .toISOString()
+                                    .split("T")[0]}{" "}
+                                {new Date(user.createdAt).toLocaleString("en-US", {
+                                    hour: "2-digit",
+                                    minute: "2-digit",
+                                    hour12: true,
+                                })}
                             </p>
                         </div>
 

@@ -16,6 +16,7 @@ import { useAutoDirection } from "@/hooks/useAutoDirection";
 
 export default function ProductCard({ product }: { product: ProductDetails }) {
     const role = useAuth((state) => state.role);
+    console.log(product);
 
     const variants = product.variants || [];
     const allImages = variants.flatMap(v =>
@@ -83,6 +84,7 @@ export default function ProductCard({ product }: { product: ProductDetails }) {
                     </Swiper>
 
                     {/* ---------- PRICE + NAME ---------- */}
+
                     <span className="fw-bold fs-5 text-text mt-3">
 
                         {product.discount && product.discount > product.raise ? (
@@ -93,16 +95,8 @@ export default function ProductCard({ product }: { product: ProductDetails }) {
                             </small>
                         ) : ''}
 
-                        {product.discount && product.raise
-                            ? product.price -
-                            (product.price * product.discount) / 100 +
-                            (product.price * product.raise) / 100
-                            : product.raise
-                                ? product.price + (product.price * product.raise) / 100
-                                : product.discount
-                                    ? product.price - (product.price * product.discount) / 100
-                                    : product.price}{" "}
-                        LE
+                        {product.finalPrice ?? product.price} LE
+
                     </span>
 
                     <p dir={useAutoDirection(product.name ?? "")} className="text-text m-0 truncate w-full ">{product.name}</p>
@@ -145,7 +139,7 @@ export default function ProductCard({ product }: { product: ProductDetails }) {
                                                     </span>
                                                 )}
                                             </button>
-                                            <p className="text-xs text-text-secondary truncate  w-12 text-center mb-0 mt-1 px-2.5">{v.color}</p>
+                                            <p className="text-xs text-text-secondary truncate  w-12  text-center mb-0 mt-1 px-2.5">{v.color}</p>
 
                                         </div>
                                     </SwiperSlide>

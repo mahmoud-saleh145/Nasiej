@@ -76,15 +76,8 @@ export default function CartCard() {
                                                 : ''
                                         }
 
-                                        {product.productId.discount && product.productId.raise
-                                            ? product.productId.price -
-                                            (product.productId.price * product.productId.discount) / 100 +
-                                            (product.productId.price * product.productId.raise) / 100
-                                            : product.productId.raise ?
-                                                product.productId.price + (product.productId.price * product.productId.raise) / 100
-                                                : product.productId.discount
-                                                    ? product.productId.price - (product.productId.price * product.productId.discount) / 100
-                                                    : product.productId.price} LE
+                                        {product.productId.finalPrice ?? product.productId.price} LE
+
                                     </span>
                                     <div className="">
                                         <span className="text-text">Color: {product.color || "N/A"}</span>

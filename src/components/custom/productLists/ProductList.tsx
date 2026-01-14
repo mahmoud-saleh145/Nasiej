@@ -7,6 +7,7 @@ import AddProductModal from "@/components/adminComponents/addProductModel/AddPro
 import { useAuth } from "@/hooks/useAuth";
 import { TailSpin } from "react-loader-spinner";
 import { useQuery } from "@tanstack/react-query";
+import EditAllProductModel from "@/components/adminComponents/editAllProductModel/EditAllProductModel";
 
 
 export default function ProductList() {
@@ -14,6 +15,7 @@ export default function ProductList() {
     const searchParams = useSearchParams();
 
     const [openAdd, setOpenAdd] = useState(false);
+    const [EditAll, setEditAll] = useState(false);
     const [empty, setEmpty] = useState(false);
 
 
@@ -54,14 +56,25 @@ export default function ProductList() {
     return (
         <div>
             {role === "admin" ?
-                <div className="">
+                <div className="flex gap-4">
                     <button
                         onClick={() => setOpenAdd(true)}
                         className="bg-buttons text-white px-4 py-2 rounded mb-4 hover:bg-buttons-hover"
                     >
                         + Add Product
                     </button>
+                    <button
+                        onClick={() => setEditAll(true)}
+                        className="bg-buttons text-white px-4 py-2 rounded mb-4 hover:bg-buttons-hover"
+                    >
+                        Edit All
+                    </button>
 
+                    {EditAll && (
+                        <EditAllProductModel
+                            onClose={() => setEditAll(false)}
+                        />
+                    )}
                     {openAdd && (
                         <AddProductModal
                             onClose={() => setOpenAdd(false)}

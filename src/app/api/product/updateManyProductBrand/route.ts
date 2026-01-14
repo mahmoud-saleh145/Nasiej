@@ -13,16 +13,25 @@ export async function PATCH(req: Request) {
             return NextResponse.json({ msg: "Brand is required" }, { status: 400 });
         }
 
-        const result = await productModel.updateMany(
-            { brand },
-            { raise, discount }
-        );
+        const products = await productModel.find({ brand });
 
-        if (result.matchedCount === 0) {
-            return NextResponse.json({ msg: "No products found for this brand" }, { status: 404 });
+        if (!products.length) {
+            return NextResponse.json(
+                { msg: "No products found for this brand" },
+                { status: 404 }
+            );
         }
 
-        return NextResponse.json({ msg: "success", result });
+        for (const product of products) {
+            product.raise = raise;
+            product.discount = discount;
+            await product.save();
+        }
+
+        return NextResponse.json({
+            msg: "Products updated successfully",
+            count: products.length,
+        });
     } catch (err) {
         console.error(err);
         return NextResponse.json({ msg: "Server error" }, { status: 500 });

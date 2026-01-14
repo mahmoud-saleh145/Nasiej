@@ -67,17 +67,8 @@ export default function ProductDetailsCard({
                             ) : (
                                 ""
                             )}
+                            {details.finalPrice ?? details.price} LE
 
-                            {details.discount && details.raise
-                                ? details.price -
-                                (details.price * details.discount) / 100 +
-                                (details.price * details.raise) / 100
-                                : details.raise
-                                    ? details.price + (details.price * details.raise) / 100
-                                    : details.discount
-                                        ? details.price - (details.price * details.discount) / 100
-                                        : details.price}
-                            LE
                         </span>
 
                         <div className="mt-2">

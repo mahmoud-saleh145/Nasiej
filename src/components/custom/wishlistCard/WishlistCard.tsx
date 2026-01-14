@@ -90,16 +90,8 @@ function WishlistItem({ wish }: { wish: WishList }) {
                                 : null
                         }
 
-                        {wish.productId.discount && wish.productId.raise
-                            ? wish.productId.price -
-                            (wish.productId.price * wish.productId.discount) / 100 +
-                            (wish.productId.price * wish.productId.raise) / 100
-                            : wish.productId.raise
-                                ? wish.productId.price + (wish.productId.price * wish.productId.raise) / 100
-                                : wish.productId.discount
-                                    ? wish.productId.price - (wish.productId.price * wish.productId.discount) / 100
-                                    : wish.productId.price}{" "}
-                        LE
+                        {wish.productId.finalPrice ?? wish.productId.price} LE
+
                     </span>
 
                     <p className="text-black m-0">{wish.productId.name}</p>

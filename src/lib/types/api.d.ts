@@ -121,6 +121,8 @@ interface ProductDetails {
     discount: number;
     raise: number;
     hide: boolean;
+    priceBeforeDiscount?: number;
+    finalPrice?: number;
     createdAt: string;
     updatedAt?: string;
 
@@ -152,6 +154,8 @@ interface Cart {
     sessionId: string;
     userId: string | null;
     items: CartItem[];
+          createdAt: string,
+      updatedAt:string,
 }
 interface CartItem {
     productId: ProductDetails;
