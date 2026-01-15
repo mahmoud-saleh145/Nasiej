@@ -154,8 +154,8 @@ interface Cart {
     sessionId: string;
     userId: string | null;
     items: CartItem[];
-          createdAt: string,
-      updatedAt:string,
+    createdAt: string,
+    updatedAt: string,
 }
 interface CartItem {
     productId: ProductDetails;
@@ -216,4 +216,7 @@ interface StatusTokenResponse {
     user?: TokenPayload;
     role?: string;
 }
+
+
+
 

@@ -52,11 +52,11 @@ export default function CheckoutForm() {
     const removeProduct = useRemoveProduct();
 
 
-    // useEffect(() => {
-    //     if (!orderDone && cart && cart.totalQuantity === 0) {
-    //         router.push('/', { scroll: false });
-    //     }
-    // }, [cart, orderDone, router]);
+    useEffect(() => {
+        if (!orderDone && cart && cart.totalQuantity === 0) {
+            router.push('/', { scroll: false });
+        }
+    }, [cart, orderDone, router]);
 
 
 
@@ -135,6 +135,13 @@ export default function CheckoutForm() {
                 setErr("");
                 setOrder(data);
                 setOrderDone(true);
+
+                if (typeof window !== "undefined" && window.fbq) {
+                    window.fbq?.("track", "Purchase", {
+                        value: (cart?.subtotal ?? 0 + shippingCost - discount).toString(),
+                        currency: "EGP",
+                    });
+                }
             }
             setLoading(false);
         }
@@ -165,6 +172,9 @@ export default function CheckoutForm() {
                         governorate: data.user.governorate as keyof typeof shippingRates,
                         phone: data.user.phone || "",
                     });
+                    if (typeof window !== "undefined" && window.fbq) {
+                        window.fbq?.("track", "CompleteRegistration")
+                    }
                 }
                 setLoading(false)
             } catch (err) {

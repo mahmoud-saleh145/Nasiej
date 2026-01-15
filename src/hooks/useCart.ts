@@ -5,6 +5,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 
+
 async function fetchCart() {
     const res = await fetch(`/api/cart/getCart`, {
         credentials: "include",
@@ -61,6 +62,7 @@ export function useAddToCart() {
                 body: JSON.stringify({ productId, color, quantity }),
             });
             const data: EditCartResponse = await res.json();
+
             if (!res.ok) throw new Error("Failed to update quantity");
             return data;
         },
@@ -73,6 +75,10 @@ export function useAddToCart() {
             }
             queryClient.invalidateQueries({ queryKey: ["cart"], exact: true });
             queryClient.invalidateQueries({ queryKey: ["cartQuantity"], exact: true });
+
+            if (typeof window !== "undefined" && window.fbq) {
+                window.fbq?.("track", "AddToCart");
+            }
 
         },
     });
