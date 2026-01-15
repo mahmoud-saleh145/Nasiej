@@ -29,7 +29,9 @@ const cartSchema = new Schema({
                 trim: true,
             }
         }
-    ]
+    ],
+    expiresAt: { type: Date, required: true, index: { expireAfterSeconds: 0 } }, // TTL
+
 }, {
     timestamps: true
 })

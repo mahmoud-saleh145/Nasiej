@@ -40,12 +40,13 @@ export async function POST(req: NextRequest) {
                 .populate("items.productId");
         }
 
-
+        const sessionDuration = 7 * 24 * 60 * 60 * 1000;
         if (!cart) {
             cart = new cartModel({
                 userId: userId || undefined,
                 sessionId: sessionId || undefined,
                 items: [],
+                expiresAt: new Date(Date.now() + sessionDuration),
             });
         }
 
