@@ -64,11 +64,11 @@ export default function CheckoutForm() {
     const removeProduct = useRemoveProduct();
 
 
-    useEffect(() => {
-        if (!orderDone && cart && cart.totalQuantity === 0) {
-            router.push('/', { scroll: false });
-        }
-    }, [cart, orderDone, router]);
+    // useEffect(() => {
+    //     if (!orderDone && cart && cart.totalQuantity === 0) {
+    //         router.push('/', { scroll: false });
+    //     }
+    // }, [cart, orderDone, router]);
 
 
 
@@ -229,7 +229,7 @@ export default function CheckoutForm() {
                             }
                             <LoginPopup open={open} onClose={() => setOpen(false)} />
                         </div>
-                        <form onSubmit={formik.handleSubmit} id="checkoutForm" >
+                        <form onSubmit={formik.handleSubmit} id="checkoutForm">
                             <div className="space-y-8 ">
 
                                 <div className="position-relative ">
@@ -260,7 +260,6 @@ export default function CheckoutForm() {
                                         {formik.errors.lastName && formik.touched.lastName && (<div className="alert alert-danger   py-0 position-absolute ">{formik.errors.lastName}</div>)}
                                     </div>
                                 </div>
-
                                 <div className="position-relative ">
                                     <input autoComplete="on"
                                         onChange={formik.handleChange}
@@ -269,7 +268,6 @@ export default function CheckoutForm() {
                                         onBlur={formik.handleBlur} type="text" name='address' className={`w-full border rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-gray-400  ${formik.touched.address && formik.values.address == '' ? "border-danger" : ""}`} placeholder='address' ></input>
                                     {formik.errors.address && formik.touched.address && (<div className="alert alert-danger   py-0 position-absolute ">{formik.errors.address}</div>)}
                                 </div>
-
                                 <div className="position-relative ">
                                     <input autoComplete="on"
                                         onChange={formik.handleChange}
@@ -278,7 +276,6 @@ export default function CheckoutForm() {
                                         onBlur={formik.handleBlur} type="text" name='phone' className={`w-full border rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-gray-400  ${formik.touched.phone && formik.values.phone == '' ? "border-danger" : ""}`} placeholder='phone' ></input>
                                     {formik.errors.phone && formik.touched.phone && (<div className="alert alert-danger   py-0 position-absolute ">{formik.errors.phone}</div>)}
                                 </div>
-
                                 <div className="position-relative ">
                                     <input autoComplete="on"
                                         onChange={formik.handleChange}

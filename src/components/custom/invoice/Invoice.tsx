@@ -7,6 +7,7 @@ export default function Invoice({ order, discount }: { order?: CompleteOrder, di
     if (!order) return <LoadingPage />;
 
     const { order: ord } = order;
+    console.log(ord);
 
     return (
         <div className="max-w-3xl mx-auto my-8 px-4">
