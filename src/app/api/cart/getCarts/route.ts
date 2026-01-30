@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { connectToDB } from "@/lib/db/db";
 import cartModel from "@/lib/models/cart.model";
 
