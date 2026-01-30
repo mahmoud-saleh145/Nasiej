@@ -4,6 +4,7 @@ import { JSON_HEADER } from "@/lib/constants/api.constants";
 import { useCallback, useEffect, useState } from "react";
 import EditOrderModal from "../editOrderModal/EditOrderModal";
 import Image from "next/image";
+import AutoText from "@/components/custom/autoText/AutoText";
 
 export default function OrdersClient() {
     const [orders, setOrders] = useState([]);
@@ -45,6 +46,7 @@ export default function OrdersClient() {
             });
 
             const data = await res.json();
+            console.log(data);
 
             if (data.msg === "success") {
                 setTotal(data.total);
@@ -141,8 +143,8 @@ export default function OrdersClient() {
                                 </div>
                                 <div className="flex justify-between items-center mb-4">
                                     <div>
-                                        <p>Email: <strong>{order.email}</strong></p>
-                                        <p>Name: <strong>{order.firstName} {order.lastName}</strong></p>
+                                        <p >Email: <strong>{order.email}</strong></p>
+                                        <p>Name:{" "}<strong>  <AutoText text={`${order.firstName} ${order.lastName}`} /></strong></p>
                                         <p>Address: <strong>{order.address}</strong></p>
                                         <p>City: <strong>{order.city}</strong></p>
                                         <p>Governorate: <strong>{order.governorate}</strong></p>
