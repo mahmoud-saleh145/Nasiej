@@ -154,7 +154,7 @@ export default function OrdersClient() {
 
                                             <p className="m-0 ">Phone: <strong>{order.phone}</strong></p>
                                             <Link
-                                                href={`https://wa.me/${order.phone}`}
+                                                href={`https://wa.me/2${order.phone}`}
                                                 target="_blank"
                                                 className="hover:text-plus transition-colors text-text"
                                                 aria-label="WhatsApp"
