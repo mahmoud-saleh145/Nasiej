@@ -1,6 +1,7 @@
-import userModel from "@/lib/models/user.model";
 import getFinalPrice from "@/lib/utils/getFinalPrice";
 import Image from "next/image";
+import Link from "next/link";
+import { FaWhatsapp } from "react-icons/fa";
 
 export default async function userCarts() {
 
@@ -50,8 +51,6 @@ export default async function userCarts() {
                         ? `User ID: ${cart.userId}`
                         : `Session: ${cart.sessionId}`;
 
-
-                    const email = await userModel.findById(cart.userId).select('email');
                     return (
                         <div
                             key={cart._id}
@@ -67,8 +66,26 @@ export default async function userCarts() {
                                         {ownerLabel}
                                     </p>
                                     <p className="text-sm opacity-80 m-0">
-                                        Email: {email?.email || "N/A"}
+                                        Email: {cart.userId?.email || "N/A"}
                                     </p>
+                                    {cart.userId?.phone ?
+                                        <div className="flex align-center gap-2">
+
+                                            <p className="text-sm opacity-80 m-0">
+                                                Phone: {cart.userId?.phone || "N/A"}
+                                            </p>
+                                            <Link
+                                                href={`https://wa.me/2${cart.userId?.phone}`}
+                                                target="_blank"
+                                                className="hover:text-plus transition-colors text-text"
+                                                aria-label="WhatsApp"
+                                            >
+                                                <FaWhatsapp size={18} />
+                                            </Link>
+                                        </div>
+                                        :
+                                        null
+                                    }
 
                                     <p className="text-sm opacity-80 m-0">
                                         created at:{" "}

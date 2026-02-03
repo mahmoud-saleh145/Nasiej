@@ -152,11 +152,17 @@ interface CartResponse {
 interface Cart {
     _id: string;
     sessionId: string;
-    userId: string | null;
+    userId: CartUserId | null;
     items: CartItem[];
     createdAt: string,
     updatedAt: string,
 }
+interface CartUserId {
+    _id: string;
+    email: string;
+    phone: string;
+}
+
 interface CartItem {
     productId: ProductDetails;
     quantity: number;
