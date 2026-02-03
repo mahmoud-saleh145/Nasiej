@@ -48,7 +48,7 @@ export default async function userCarts() {
                     );
 
                     const ownerLabel = cart.userId
-                        ? `User ID: ${cart.userId}`
+                        ? `User ID: ${cart.userId._id}`
                         : `Session: ${cart.sessionId}`;
 
                     return (
