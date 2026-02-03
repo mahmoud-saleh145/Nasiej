@@ -5,6 +5,8 @@ import { useCallback, useEffect, useState } from "react";
 import EditOrderModal from "../editOrderModal/EditOrderModal";
 import Image from "next/image";
 import AutoText from "@/components/custom/autoText/AutoText";
+import Link from "next/link";
+import { FaWhatsapp } from "react-icons/fa";
 
 export default function OrdersClient() {
     const [orders, setOrders] = useState([]);
@@ -148,7 +150,18 @@ export default function OrdersClient() {
                                         <p>Address: <strong>{order.address}</strong></p>
                                         <p>City: <strong>{order.city}</strong></p>
                                         <p>Governorate: <strong>{order.governorate}</strong></p>
-                                        <p>Phone: <strong>{order.phone}</strong></p>
+                                        <div className="flex items-center gap-2">
+
+                                            <p className="m-0 ">Phone: <strong>{order.phone}</strong></p>
+                                            <Link
+                                                href={`https://wa.me/${order.phone}`}
+                                                target="_blank"
+                                                className="hover:text-plus transition-colors text-text"
+                                                aria-label="WhatsApp"
+                                            >
+                                                <FaWhatsapp size={22} />
+                                            </Link>
+                                        </div>
                                     </div>
 
                                     <div className="font-bold text-lg">

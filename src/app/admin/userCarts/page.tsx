@@ -1,3 +1,4 @@
+import userModel from "@/lib/models/user.model";
 import getFinalPrice from "@/lib/utils/getFinalPrice";
 import Image from "next/image";
 
@@ -11,9 +12,10 @@ export default async function userCarts() {
         throw new Error("Failed to fetch carts");
     }
 
-    const data: EditCart = await res.json();
 
+    const data: EditCart = await res.json();
     const carts = data.cart;
+
     return (
         <div className="container mx-auto py-6 text-text">
             {/* Header */}
@@ -33,7 +35,7 @@ export default async function userCarts() {
 
             {/* Carts */}
             <div className="flex flex-col gap-6">
-                {carts?.map((cart) => {
+                {carts?.map(async (cart) => {
                     const totalItems = cart.items.reduce(
                         (sum, item) => sum + item.quantity,
                         0
@@ -49,6 +51,7 @@ export default async function userCarts() {
                         : `Session: ${cart.sessionId}`;
 
 
+                    const email = await userModel.findById(cart.userId).select('email');
                     return (
                         <div
                             key={cart._id}
@@ -62,6 +65,9 @@ export default async function userCarts() {
                                     </h2>
                                     <p className="text-sm opacity-80 m-0">
                                         {ownerLabel}
+                                    </p>
+                                    <p className="text-sm opacity-80 m-0">
+                                        Email: {email?.email || "N/A"}
                                     </p>
 
                                     <p className="text-sm opacity-80 m-0">
