@@ -7,7 +7,7 @@ export async function PATCH(req: Request) {
         await connectToDB();
 
         const body = await req.json();
-        const { raise, discount, increaseAmount } = body;
+        const { priceChange, discountChange, raiseChange } = body;
 
         const products = await productModel.find({});
 
@@ -19,16 +19,20 @@ export async function PATCH(req: Request) {
         }
 
         for (const product of products) {
-            if (increaseAmount && increaseAmount > 0) {
-                product.price += increaseAmount;
+
+            if (typeof priceChange === "number") {
+                product.price += priceChange;
+                if (product.price < 0) product.price = 0;
             }
 
-            if (raise !== undefined && raise !== null) {
-                product.raise = raise;
+            if (typeof discountChange === "number") {
+                product.discount = (product.discount || 0) + discountChange;
+                if (product.discount < 0) product.discount = 0;
             }
 
-            if (discount !== undefined && discount !== null) {
-                product.discount = discount;
+            if (typeof raiseChange === "number") {
+                product.raise = (product.raise || 0) + raiseChange;
+                if (product.raise < 0) product.raise = 0;
             }
 
             await product.save();
@@ -47,3 +51,4 @@ export async function PATCH(req: Request) {
         );
     }
 }
+

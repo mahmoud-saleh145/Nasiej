@@ -20,37 +20,40 @@ export default function EditAllProductModel({ onClose }: { onClose: () => void }
     const handleSave = async () => {
         setErr(null);
 
-        const priceVal = price ? parseFloat(price) : undefined;
-        const discountVal = discount ? parseFloat(discount) : undefined;
-        const raiseVal = raise ? parseFloat(raise) : undefined;
+        const priceVal = price !== "" ? Number(price) : undefined;
+        const discountVal = discount !== "" ? Number(discount) : undefined;
+        const raiseVal = raise !== "" ? Number(raise) : undefined;
 
         if (
-            (priceVal !== undefined && isNaN(priceVal)) ||
-            (discountVal !== undefined && isNaN(discountVal)) ||
-            (raiseVal !== undefined && isNaN(raiseVal))
+            [priceVal, discountVal, raiseVal].some(
+                v => v !== undefined && isNaN(v)
+            )
         ) {
             setErr("Please enter valid numbers");
             return;
         }
+
         setLoading(true);
 
         try {
-
             const res = await fetch("/api/product/updateAllProducts", {
                 method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
                 body: JSON.stringify({
-                    increaseAmount: priceVal,
-                    discount: discountVal,
-                    raise: raiseVal,
+                    priceChange: priceVal,
+                    discountChange: discountVal,
+                    raiseChange: raiseVal,
                 }),
             });
 
             const data = await res.json();
 
-            if (data.msg === "sucsess") {
+            if (data.msg === "success") {
                 window.location.reload();
             } else {
-                setErr(data.err)
+                setErr(data.msg || "Something went wrong");
             }
 
         } catch (error) {
@@ -60,6 +63,7 @@ export default function EditAllProductModel({ onClose }: { onClose: () => void }
             setLoading(false);
         }
     };
+
 
     return (
         <div className="fixed inset-0 edit-model bg-black/40 flex items-center justify-center p-4 z-50">
