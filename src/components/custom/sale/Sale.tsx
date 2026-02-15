@@ -22,6 +22,7 @@ export default function Sale() {
                 });
 
                 const data = await res.json();
+                console.log(data);
 
                 if (data.msg === "success") {
                     setProducts(data.products);
@@ -42,40 +43,43 @@ export default function Sale() {
     return (
         loading ? <LoadingPage />
             :
-            <div className="">
-                <h3 className="text-3xl md:text-2xl font-bold text-center  p-3
+            products.length === 0 ?
+                ""
+                :
+                <div className="">
+                    <h3 className="text-3xl md:text-2xl font-bold text-center  p-3
     text-red-500
     animate-pulse
     drop-shadow-[0_0_12px_rgba(255,0,0,0.7)]
 ">
-                    🔥 Final Winter Sale 🔥
-                </h3>
+                        🔥 Final Winter Sale 🔥
+                    </h3>
 
-                <Swiper
-                    modules={[Autoplay]}
-                    autoplay={{
-                        delay: 3500,
-                        disableOnInteraction: true,
-                        pauseOnMouseEnter: true
-                    }}
-                    slidesPerView={2.2}
-                    breakpoints={{
-                        768: {
-                            slidesPerView: 3.2,
-                        },
-                        1280: {
-                            slidesPerView: 4.2,
-                        },
-                    }}
-                    loop
-                    className=""
-                >
-                    {products.map((product) => (
-                        <SwiperSlide key={product._id} className="pb-5">
-                            <ProductCard key={product._id} product={product} />
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
-            </div>
+                    <Swiper
+                        modules={[Autoplay]}
+                        autoplay={{
+                            delay: 3500,
+                            disableOnInteraction: true,
+                            pauseOnMouseEnter: true
+                        }}
+                        slidesPerView={2.2}
+                        breakpoints={{
+                            768: {
+                                slidesPerView: 3.2,
+                            },
+                            1280: {
+                                slidesPerView: 4.2,
+                            },
+                        }}
+                        loop
+                        className=""
+                    >
+                        {products.map((product) => (
+                            <SwiperSlide key={product._id} className="pb-5">
+                                <ProductCard key={product._id} product={product} />
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                </div>
     );
 }
