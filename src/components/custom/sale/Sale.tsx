@@ -52,7 +52,7 @@ export default function Sale() {
     animate-pulse
     drop-shadow-[0_0_12px_rgba(255,0,0,0.7)]
 ">
-                        🔥 Final Winter Sale 🔥
+                        🔥 Final Winter Sale 20% 🔥
                     </h3>
 
                     <Swiper

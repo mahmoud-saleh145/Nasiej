@@ -67,14 +67,11 @@ export default function CartCard() {
 
                                     <span className="fw-bold text-base text-text mt-3">
 
-                                        {product.productId.discount && product.productId.discount > product.productId.raise ?
-
-                                            <small className="text-text-secondary me-1 "><del>{product.productId.price}</del></small>
-                                            :
-                                            product.productId.discount && product.productId.discount < product.productId.raise ?
-                                                <small className="text-text-secondary me-1 "><del>{product.productId.price + (product.productId.price * product.productId.raise) / 100}</del></small>
-                                                : ''
-                                        }
+                                        {product.productId.priceBeforeDiscount && product.productId.finalPrice && product.productId.priceBeforeDiscount > product.productId.finalPrice && (
+                                            <small className="text-text-secondary me-1">
+                                                <del>{product.productId.priceBeforeDiscount}</del>
+                                            </small>
+                                        )}
 
                                         {product.productId.finalPrice ?? product.productId.price} LE
 

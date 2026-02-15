@@ -56,16 +56,10 @@ export default function ProductDetailsCard({
                 <div className="flex justify-between items-center">
                     <div className="">
                         <span className="fw-bold text-2xl text-text ">
-                            {details.discount && details.discount > details.raise ? (
-                                <small className="text-text-secondary me-1 ">
-                                    <del>{details.price}</del>
-                                </small>
-                            ) : details.discount && details.discount < details.raise ? (
+                            {details.priceBeforeDiscount && details.finalPrice && details.priceBeforeDiscount > details.finalPrice && (
                                 <small className="text-text-secondary me-1">
-                                    <del>{details.price + (details.price * details.raise) / 100}</del>
+                                    <del>{details.priceBeforeDiscount}</del>
                                 </small>
-                            ) : (
-                                ""
                             )}
                             {details.finalPrice ?? details.price} LE
 

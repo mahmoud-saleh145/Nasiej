@@ -392,14 +392,12 @@ export default function CheckoutForm() {
                                             <div className="flex flex-column align-items-center gap-2">
                                                 <span className="fw-bold text-base text-text">
 
-                                                    {item.productId.discount && item.productId.discount > item.productId.raise ?
 
-                                                        <small className="text-text-secondary me-1 "><del>{item.productId.price}</del></small>
-                                                        :
-                                                        item.productId.discount && item.productId.discount < item.productId.raise ?
-                                                            <small className="text-text-secondary me-1 "><del>{item.productId.price + (item.productId.price * item.productId.raise) / 100}</del></small>
-                                                            : ''
-                                                    }
+                                                    {item.productId.priceBeforeDiscount && item.productId.finalPrice && item.productId.priceBeforeDiscount > item.productId.finalPrice && (
+                                                        <small className="text-text-secondary me-1">
+                                                            <del>{item.productId.priceBeforeDiscount}</del>
+                                                        </small>
+                                                    )}
 
                                                     {item.productId.finalPrice ?? item.productId.price} LE
 

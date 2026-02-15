@@ -16,7 +16,6 @@ import { useAutoDirection } from "@/hooks/useAutoDirection";
 
 export default function ProductCard({ product }: { product: ProductDetails }) {
     const role = useAuth((state) => state.role);
-
     const variants = product.variants || [];
     const allImages = variants.flatMap(v =>
         v.images.map(img => ({
@@ -86,13 +85,11 @@ export default function ProductCard({ product }: { product: ProductDetails }) {
 
                     <span className="fw-bold fs-5 text-text mt-3">
 
-                        {product.discount && product.discount > product.raise ? (
-                            <small className="text-text-secondary me-1"><del>{product.price}</del></small>
-                        ) : product.raise && product.discount && product.discount < product.raise ? (
+                        {product.priceBeforeDiscount && product.finalPrice && product.priceBeforeDiscount > product.finalPrice && (
                             <small className="text-text-secondary me-1">
-                                <del>{product.price + (product.price * product.raise) / 100}</del>
+                                <del>{product.priceBeforeDiscount}</del>
                             </small>
-                        ) : ''}
+                        )}
 
                         {product.finalPrice ?? product.price} LE
 

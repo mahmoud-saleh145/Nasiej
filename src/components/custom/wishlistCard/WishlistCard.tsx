@@ -82,13 +82,12 @@ function WishlistItem({ wish }: { wish: WishList }) {
                     </Swiper>
 
                     <span className="fw-bold fs-5 text-text mt-3">
-                        {wish.productId.discount && wish.productId.discount > wish.productId.raise ?
-                            <small className="text-text-secondary me-1"><del>{wish.productId.price}</del></small>
-                            :
-                            wish.productId.discount && wish.productId.discount < wish.productId.raise ?
-                                <small className="text-text-secondary me-1"><del>{wish.productId.price + (wish.productId.price * wish.productId.raise) / 100}</del></small>
-                                : null
-                        }
+                        {wish.productId.priceBeforeDiscount && wish.productId.finalPrice && wish.productId.priceBeforeDiscount > wish.productId.finalPrice && (
+                            <small className="text-text-secondary me-1">
+                                <del>{wish.productId.priceBeforeDiscount}</del>
+                            </small>
+                        )}
+
 
                         {wish.productId.finalPrice ?? wish.productId.price} LE
 

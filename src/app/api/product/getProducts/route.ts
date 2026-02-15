@@ -29,6 +29,8 @@ export async function GET(req: NextRequest) {
     try {
         await connectToDB();
 
+
+
         const searchParams = req.nextUrl.searchParams;
 
         const page = Math.max(parseInt(searchParams.get("page") || "1"), 1);
@@ -82,6 +84,8 @@ export async function GET(req: NextRequest) {
 
         const total = await productModel.countDocuments(query);
         const products = await productModel.find(query).sort(sort).skip(skip).limit(limit);
+
+
 
         return NextResponse.json(
             {
