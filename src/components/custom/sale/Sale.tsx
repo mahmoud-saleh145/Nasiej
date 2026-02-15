@@ -1,4 +1,6 @@
 'use client'
+export const dynamic = "force-dynamic";
+
 import ProductCard from "../productCard/ProductCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
