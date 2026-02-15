@@ -13,18 +13,27 @@ export default function Sale() {
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        setLoading(true)
         const fetchData = async () => {
-            const res = await fetch(`/api/product/getSale`, {
-                cache: "no-store",
-            });
-            const data: APIResponse<Product> = await res.json();
+            try {
+                setLoading(true);
 
-            if (data.msg === "success" && data.products) {
-                setProducts(data.products);
-                setLoading(false)
-            } else { setLoading(false) }
+                const res = await fetch(`/api/product/getSale`, {
+                    cache: "no-store",
+                });
+
+                const data = await res.json();
+
+                if (data.msg === "success") {
+                    setProducts(data.products);
+                }
+
+            } catch (error) {
+                console.error(error);
+            } finally {
+                setLoading(false);
+            }
         };
+
         fetchData();
     }, []);
 
@@ -61,8 +70,8 @@ export default function Sale() {
                     loop
                     className=""
                 >
-                    {products.map((product, index) => (
-                        <SwiperSlide key={index} className="pb-5">
+                    {products.map((product) => (
+                        <SwiperSlide key={product._id} className="pb-5">
                             <ProductCard key={product._id} product={product} />
                         </SwiperSlide>
                     ))}
