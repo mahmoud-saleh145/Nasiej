@@ -1,4 +1,6 @@
 // app/api/products/export/route.ts
+export const dynamic = "force-dynamic";
+
 import { NextResponse } from "next/server";
 import productModel from "@/lib/models/product.model";
 import { connectToDB } from "@/lib/db/db";
