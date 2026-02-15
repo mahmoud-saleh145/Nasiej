@@ -11,28 +11,55 @@ export async function GET() {
     const rows = [];
     for (const p of products) {
         for (const v of p.variants) {
+            const availableQty = Math.max(v.stock - v.reserved, 0);
+
             rows.push({
-                _id: p._id,
-                name: p.name,
-                price: p.price,
-                finalPrice: p.finalPrice,
-                discount: p.discount,
-                raise: p.raise,
+                id: `${p._id}-${v.color}`,
+                title: `${p.name} - ${v.color}`,
+                description: p.description?.replace(/\r?\n/g, " "),
+                availability: availableQty > 0 ? "in stock" : "out of stock",
+                condition: "new",
+                price: `${p.finalPrice} EGP`,
+                link: `https://www.nasiej.com/product/${p._id}`,
+                image_link: v.images?.[0]?.url,
                 brand: p.brand,
-                category: p.category,
-                hide: p.hide,
-                priceBeforeDiscount: p.priceBeforeDiscount,
-                createdAt: p.createdAt,
-                updatedAt: p.updatedAt,
-                variantColor: v.color,
-                variantStock: v.stock,
-                variantReserved: v.reserved,
-                variantImages: v.images.map((i: VariantImage) => i.url).join("|"),
+                item_group_id: p._id,
+                status: p.hide ? "archived" : "active",
+                color: v.color,
+                quantity_to_sell_on_facebook: availableQty,
+                google_product_category:
+                    "Home & Garden > Linens & Bedding > Bedding > Comforters & Sets",
+                fb_product_category:
+                    "Home & Garden > Household Supplies > Bedding & Linens",
+                additional_image_link: v.images
+                    .slice(1)
+                    .map((i: VariantImage) => i.url)
+                    .join("|"),
             });
         }
     }
 
-    const parser = new Parser();
+    const fields = [
+        "id",
+        "title",
+        "description",
+        "availability",
+        "condition",
+        "price",
+        "link",
+        "image_link",
+        "brand",
+        "item_group_id",
+        "status",
+        "color",
+        "quantity_to_sell_on_facebook",
+        "google_product_category",
+        "fb_product_category",
+        "additional_image_link"
+    ];
+
+    const parser = new Parser({ fields });
+
     const csv = parser.parse(rows);
 
     return new NextResponse(csv, {
