@@ -24,9 +24,13 @@ export async function GET(req: NextRequest) {
         }
 
 
-        if (!cart && sessionId)
-            cart = await cartModel.create({ sessionId, items: [] });
-
+        if (!cart) {
+            cart = await cartModel.create({
+                userId: userId || null,
+                sessionId: sessionId || null,
+                items: []
+            });
+        }
 
         const totalQuantity = cart.items.reduce(
             (acc: number, item: CartItem) => acc + item.quantity,

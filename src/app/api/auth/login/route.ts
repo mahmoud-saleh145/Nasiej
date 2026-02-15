@@ -35,20 +35,20 @@ export async function POST(req: Request) {
 
             await couponModel.create({
                 code: couponCode,
-                discountValue: 10,
+                discountValue: 5,
                 userEmail: email,
                 expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
             });
 
             const couponHtml = generateWelcomeCouponEmail({
                 couponCode,
-                discountValue: 10,
+                discountValue: 5,
                 expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
             });
 
             const emailResult = await sendEmail(
                 email,
-                "🎁 Your 10% Welcome Discount is Here!",
+                "🎁 Your 5% Welcome Discount is Here!",
                 couponHtml
             );
 

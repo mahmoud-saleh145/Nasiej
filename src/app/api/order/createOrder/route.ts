@@ -77,9 +77,14 @@ export async function POST(req: NextRequest) {
         if (couponCode) {
             const coupon = await couponModel.findOne({
                 code: couponCode,
-                userEmail: email,
-                isUsed: false,
-                expiresAt: { $gt: new Date() }
+                expiresAt: { $gt: new Date() },
+                $or: [
+                    { isGlobal: true },
+                    { userEmail: email }
+                ],
+                $expr: {
+                    $lt: ["$usedCount", "$usageLimit"]
+                }
             });
 
             if (!coupon) {
@@ -91,7 +96,13 @@ export async function POST(req: NextRequest) {
 
             discount = (subtotal * coupon.discountValue) / 100;
 
-            coupon.isUsed = true;
+            await couponModel.updateOne(
+                {
+                    _id: coupon._id,
+                    $expr: { $lt: ["$usedCount", "$usageLimit"] }
+                },
+                { $inc: { usedCount: 1 } }
+            );
             await coupon.save();
         }
         const totalPrice = Math.floor(subtotal + shippingCost - discount);

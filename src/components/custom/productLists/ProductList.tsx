@@ -114,14 +114,14 @@ export default function ProductList() {
                                 </div>
                                 :
                                 role !== "admin" ?
-                                    <div className=" grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4  ">
+                                    <div className=" grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4   ">
 
                                         {products?.map((p) => (
                                             <ProductCard key={p._id} product={p} />
                                         ))}
                                     </div>
                                     :
-                                    <div className=" grid grid-cols-2  lg:grid-cols-3 xl:grid-cols-4 gap-4 relative ">
+                                    <div className=" grid grid-cols-2  lg:grid-cols-3 xl:grid-cols-4  relative ">
 
                                         {products?.map((p) => (
                                             <ProductCardAdmin key={p._id} product={p} />

@@ -1,5 +1,5 @@
 export function generateWelcomeCoupon() {
-  return "WELCOME10-" + Math.random().toString(36).substring(2, 8).toUpperCase();
+  return "WELCOME5-" + Math.random().toString(36).substring(2, 8).toUpperCase();
 }
 
 export const generateWelcomeCouponEmail = ({

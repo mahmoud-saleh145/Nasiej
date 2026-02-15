@@ -48,7 +48,6 @@ export default function OrdersClient() {
             });
 
             const data = await res.json();
-            console.log(data);
 
             if (data.msg === "success") {
                 setTotal(data.total);

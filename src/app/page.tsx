@@ -4,6 +4,7 @@ import ProductList from "@/components/custom/productLists/ProductList";
 import img from "../../public/main-name.png"
 import Image from "next/image"
 import VideoHero from "@/components/custom/videoHero/VideoHero";
+import Sale from "@/components/custom/sale/Sale";
 export default async function ProductsPage() {
 
   return (
@@ -25,8 +26,16 @@ export default async function ProductsPage() {
         </div>
       </div>
 
-      <div className="container-fluid mx-auto  py-4">
-        <div className="flex flex-col lg:flex-row gap-6 lg:px-6 px-2 ">
+
+
+
+      <div className="container-fluid mx-auto  py-4 px-0 ">
+        <div className=" overflow-hidden ">
+          <Sale />
+        </div>
+
+        <h4 className="text-3xl text-text text-center py-2">All Products</h4>
+        <div className="flex flex-col lg:flex-row gap-3 lg:px-6 px-2 ">
           <div className="lg:w-64">
             <ProductFilters />
           </div>
@@ -35,6 +44,8 @@ export default async function ProductsPage() {
           </div>
         </div>
       </div>
+
+
     </div>
   );
 }

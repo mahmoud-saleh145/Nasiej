@@ -62,7 +62,7 @@ export default function SearchCard() {
             ) : empty ? (
                 <div className="text-center py-10">There is no products</div>
             ) : query !== "" ? (
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
                     {products.map((product) => (
                         <ProductCard key={product._id} product={product} />
                     ))}

@@ -64,11 +64,11 @@ export default function CheckoutForm() {
     const removeProduct = useRemoveProduct();
 
 
-    // useEffect(() => {
-    //     if (!orderDone && cart && cart.totalQuantity === 0) {
-    //         router.push('/', { scroll: false });
-    //     }
-    // }, [cart, orderDone, router]);
+    useEffect(() => {
+        if (!orderDone && cart && cart.totalQuantity === 0) {
+            router.push('/', { scroll: false });
+        }
+    }, [cart, orderDone, router]);
 
 
 

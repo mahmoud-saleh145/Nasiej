@@ -4,7 +4,9 @@ const couponSchema = new Schema({
     code: {
         type: String,
         unique: true,
-        required: true
+        required: true,
+        uppercase: true,
+        trim: true
     },
     discountType: {
         type: String,
@@ -15,15 +17,22 @@ const couponSchema = new Schema({
         type: Number,
         required: true
     },
-
-    userEmail: {
-        type: String,
-        required: true
-    },
-
-    isUsed: {
+    isGlobal: {
         type: Boolean,
         default: false
+    },
+    usageLimit: {
+        type: Number,
+        default: 1
+    },
+
+    usedCount: {
+        type: Number,
+        default: 0
+    },
+    userEmail: {
+        type: String,
+        default: undefined
     },
 
     expiresAt: {

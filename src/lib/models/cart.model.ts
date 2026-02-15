@@ -30,7 +30,10 @@ const cartSchema = new Schema({
             }
         }
     ],
-    expiresAt: { type: Date, required: true, index: { expireAfterSeconds: 0 } }, // TTL
+    expiresAt: {
+        type: Date, required: true, index: { expireAfterSeconds: 0 },
+        default: () => new Date(Date.now() + 1000 * 60 * 60 * 24 * 7)
+    },
 
 }, {
     timestamps: true

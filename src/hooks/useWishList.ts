@@ -33,7 +33,6 @@ export function useToggleWishlist() {
 
             if (!res.ok) throw new Error("Failed to toggle wishlist");
             const data: ToggleWishlist<wishListFetch> = await res.json()
-            console.log(data)
             return data
         },
         onSuccess: () => {

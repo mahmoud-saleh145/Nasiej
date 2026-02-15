@@ -15,7 +15,7 @@ export default async function SpecificBrand({ params }: { params: { brand: strin
             <h3 className="text-3xl sm:text-4xl font-bold text-text mb-8 text-center mt-3">
                 Products by {brand}
             </h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 {products.msg == "success" && products?.products?.map((item) => (
                     <ProductCard key={item._id} product={item} />
                 ))}

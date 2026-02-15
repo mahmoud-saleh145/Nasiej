@@ -5,18 +5,17 @@ import AddToWishListButton from "@/components/common/AddToWishListButton";
 import { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Thumbs, Autoplay } from "swiper/modules";
-import Image from "next/image";
+import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
-import type { Swiper as SwiperType } from "swiper";
+import Image from "next/image";
 import { IoMdClose } from "react-icons/io";
 import { useAuth } from "@/hooks/useAuth";
 import { useAutoDirection } from "@/hooks/useAutoDirection";
 
 export default function ProductCard({ product }: { product: ProductDetails }) {
     const role = useAuth((state) => state.role);
-    console.log(product);
 
     const variants = product.variants || [];
     const allImages = variants.flatMap(v =>
@@ -39,7 +38,7 @@ export default function ProductCard({ product }: { product: ProductDetails }) {
 
 
     return (
-        <div className={`cards-animation ${product.hide && role === "admin" ? "opacity-50" : product.hide ? "hidden" : ""}`} key={product._id}>
+        <div className={`cards-animation md:p-4 p-2 ${product.hide && role === "admin" ? "opacity-50" : product.hide ? "hidden" : ""}`} key={product._id}>
             <div className="product rounded-xl py-3 p-3 shadow-xl bg-background-light">
 
                 {/* LINK */}
@@ -68,8 +67,8 @@ export default function ProductCard({ product }: { product: ProductDetails }) {
                                             fill
                                             className="object-contain select-none"
                                             sizes="100vw"
-                                            priority
-
+                                            loading="lazy"
+                                            unoptimized
                                         />
                                     </div>
                                 </SwiperSlide>
