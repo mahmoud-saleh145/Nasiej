@@ -47,7 +47,7 @@ export default function Sale() {
                 ""
                 :
                 <div className="">
-                    <h3 className="text-3xl md:text-2xl font-bold text-center  p-3
+                    <h3 className="text-2xl md:text-2xl font-bold text-center  p-3
     text-red-500
     animate-pulse
     drop-shadow-[0_0_12px_rgba(255,0,0,0.7)]
