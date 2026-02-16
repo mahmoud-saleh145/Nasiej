@@ -10,10 +10,13 @@ export async function GET() {
         await connectToDB()
         const carts = await cartModel
             .find({ "items.0": { $exists: true } })
-            .populate("items.productId").populate({
+            .sort({ createdAt: -1 })
+            .populate("items.productId")
+            .populate({
                 path: "userId",
                 select: "email phone"
             });;
+
         return NextResponse.json({
             msg: "success",
             cart: carts,
