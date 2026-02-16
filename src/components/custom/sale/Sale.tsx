@@ -56,26 +56,25 @@ export default function Sale() {
                     <Swiper
                         modules={[Autoplay, FreeMode]}
                         autoplay={{
-                            delay: 3500,
+                            delay: 0,
                             disableOnInteraction: true,
                             pauseOnMouseEnter: true,
                         }}
-                        speed={1000}
+                        speed={6000}
                         freeMode={{
                             enabled: true,
-                            momentum: true,
-                            momentumRatio: 0.5,
-                            momentumBounce: false,
+                            momentum: false,
                         }}
                         slidesPerView={2.1}
                         slidesPerGroup={1}
-                        resistanceRatio={0}
-                        touchRatio={1.2}
+                        resistanceRatio={0.85}
+                        touchRatio={1}
+                        allowTouchMove={true}
+                        loop
                         breakpoints={{
                             768: { slidesPerView: 3.1 },
                             1280: { slidesPerView: 4.1 },
                         }}
-                        loop
                     >
                         {products.map((product) => (
                             <SwiperSlide key={product._id} className="pb-5">
@@ -84,32 +83,6 @@ export default function Sale() {
                         ))}
                     </Swiper>
 
-
-                    {/* <Swiper
-                        modules={[Autoplay]}
-                        autoplay={{
-                            delay: 3500,
-                            disableOnInteraction: true,
-                            pauseOnMouseEnter: true
-                        }}
-                        slidesPerView={2.2}
-                        breakpoints={{
-                            768: {
-                                slidesPerView: 3.2,
-                            },
-                            1280: {
-                                slidesPerView: 4.2,
-                            },
-                        }}
-                        loop
-                        className=""
-                    >
-                        {products.map((product) => (
-                            <SwiperSlide key={product._id} className="pb-5">
-                                <ProductCard key={product._id} product={product} />
-                            </SwiperSlide>
-                        ))}
-                    </Swiper> */}
                 </div>
     );
 }
