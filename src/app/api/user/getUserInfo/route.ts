@@ -9,9 +9,8 @@ export async function GET(req: NextRequest) {
         return NextResponse.json({ msg: "User not logged in" }, { status: 401 });
     }
 
-    const user = await userModel.findById(userId).populate({
+    const user: User = await userModel.findById(userId).populate({
         path: "orders.orderId",
-        options: { sort: { createdAt: -1 } },
         populate: {
             path: "products.productId",
             select: "-createdAt -hide -raise -discount -reserved -stock ",
@@ -19,6 +18,13 @@ export async function GET(req: NextRequest) {
     });
     if (!user) {
         return NextResponse.json({ msg: "user not found" }, { status: 404 });
+    }
+    if (user?.orders?.length) {
+        user.orders.sort((a, b) => {
+            const dateA = new Date(a.orderId?.createdAt || 0).getTime();
+            const dateB = new Date(b.orderId?.createdAt || 0).getTime();
+            return dateB - dateA;
+        });
     }
 
     return NextResponse.json({
