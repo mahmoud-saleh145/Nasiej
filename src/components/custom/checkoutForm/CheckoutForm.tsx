@@ -101,7 +101,6 @@ export default function CheckoutForm() {
             });
 
             const data = await res.json();
-            console.log(data)
             if (data.msg !== "success") {
                 setDiscount(0);
                 setCouponError("Invalid or expired coupon");

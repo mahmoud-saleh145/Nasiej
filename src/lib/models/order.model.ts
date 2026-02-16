@@ -33,6 +33,10 @@ const orderSchema = new Schema({
             },
         }
     ],
+    discount: {
+        type: Number,
+        default: 0
+    },
     shippingCost: {
         type: Number,
         default: 0

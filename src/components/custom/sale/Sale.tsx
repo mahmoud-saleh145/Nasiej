@@ -22,8 +22,6 @@ export default function Sale() {
                 });
 
                 const data = await res.json();
-                console.log(data);
-
                 if (data.msg === "success") {
                     setProducts(data.products);
                 }

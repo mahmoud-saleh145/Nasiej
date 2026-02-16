@@ -53,6 +53,7 @@ interface Order {
     _id: string;
     userId: string;
     products: OrderProduct[];
+    discount: number;
     shippingCost: number;
     subtotal: number;
     totalPrice: number;

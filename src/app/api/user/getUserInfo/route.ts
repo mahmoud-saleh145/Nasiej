@@ -11,6 +11,7 @@ export async function GET(req: NextRequest) {
 
     const user = await userModel.findById(userId).populate({
         path: "orders.orderId",
+        options: { sort: { createdAt: -1 } },
         populate: {
             path: "products.productId",
             select: "-createdAt -hide -raise -discount -reserved -stock ",

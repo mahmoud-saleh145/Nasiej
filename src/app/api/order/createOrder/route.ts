@@ -94,7 +94,9 @@ export async function POST(req: NextRequest) {
                 );
             }
 
-            discount = (subtotal * coupon.discountValue) / 100;
+            const rawDiscount = (subtotal * coupon.discountValue) / 100;
+
+            discount = Math.ceil(rawDiscount / 5) * 5;
 
             await couponModel.updateOne(
                 {
@@ -109,6 +111,9 @@ export async function POST(req: NextRequest) {
 
         const orderNumber = await orderCounter("order");
         const randomId = generateRandomCode();
+        console.log(subtotal,
+            shippingCost,
+            totalPrice,);
 
         const order = new orderModel({
             sessionId,
@@ -121,6 +126,7 @@ export async function POST(req: NextRequest) {
             })),
             orderNumber,
             randomId,
+            discount,
             subtotal,
             shippingCost,
             totalPrice,

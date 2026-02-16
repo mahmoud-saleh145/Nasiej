@@ -3,7 +3,7 @@ export const generateInvoice = (order: Order) => {
     <tr>
       <td style="padding:8px;border-bottom:1px solid #eee;">${item.productId.name}</td>
       <td style="padding:8px;border-bottom:1px solid #eee;text-align:center;">${item.quantity}</td>
-      <td style="padding:8px;border-bottom:1px solid #eee;text-align:right;">${(Number(item.price) || 0).toFixed(2)} EGP EGP</td>
+      <td style="padding:8px;border-bottom:1px solid #eee;text-align:right;">${(Number(item.price) || 0).toFixed(2)} EGP</td>
     </tr>
   `).join("");
 
@@ -33,11 +33,19 @@ export const generateInvoice = (order: Order) => {
       </table>
 
       <table style="width:100%;margin-top:20px;border-collapse:collapse;">
-       <tr>
+<tr>
   <td style="padding:8px;text-align:right;">Subtotal</td>
   <td style="padding:8px;text-align:right;">${order.subtotal.toFixed(2)} EGP</td>
 </tr>
-<tr>
+${order?.discount && order.discount > 0 ? `
+<tr style="color:green;">
+  <td style="padding:8px;text-align:right;">Discount</td>
+  <td style="padding:8px;text-align:right;">-${order.discount.toFixed(2)} EGP</td>
+</tr>
+` : ""}
+
+
+<tr >
   <td style="padding:8px;text-align:right;">Shipping</td>
   <td style="padding:8px;text-align:right;">${order.shippingCost.toFixed(2)} EGP</td>
 </tr>

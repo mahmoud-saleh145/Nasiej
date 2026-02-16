@@ -207,6 +207,9 @@ export default function OrdersClient() {
                                 {/* Summary */}
                                 <div className="pt-4 opacity-90">
                                     <p className="m-0">Subtotal: {order.subtotal} LE</p>
+                                    {order?.discount && order?.discount > 0 ? (
+                                        <p className="m-0 text-green-600">Discount: -{order?.discount} LE</p>
+                                    ) : ""}
                                     <p className="m-0">Shipping: {order.shippingCost} LE</p>
                                     <p className="font-bold mt-1">Total: {order.totalPrice} LE</p>
                                 </div>
