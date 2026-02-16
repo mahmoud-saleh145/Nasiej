@@ -22,7 +22,7 @@ export async function GET() {
                 availability: availableQty > 0 ? "in stock" : "out of stock",
                 condition: "new",
                 price: `${p.finalPrice} EGP`,
-                link: `https://www.nasiej.com/product/${p._id}`,
+                link: `https://www.nasiej.com/productDetails/${p._id}`,
                 image_link: v.images?.[0]?.url,
                 brand: p.brand,
                 item_group_id: p._id,
