@@ -38,6 +38,7 @@ export async function POST(req: NextRequest) {
 
         const users = await userModel
             .find(filter)
+            .sort({ createdAt: -1 })
             .populate("orders.orderId")
             .lean();
 

@@ -81,6 +81,9 @@ export default function UsersFilters() {
                             <p className="m-0 text-sm opacity-80">
                                 Phone: {user.phone}
                             </p>
+                            <p className="m-0 text-sm opacity-80">
+                                Created At: {user.createdAt.split("T")[0]}
+                            </p>
                         </div>
 
                         {/* Orders */}
