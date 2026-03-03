@@ -5,10 +5,10 @@ import "@/lib/models/order.model";
 import "@/lib/models/user.model";
 import cartModel from "@/lib/models/cart.model";
 import wishListModel from "@/lib/models/wishlist.model";
-import { sendEmail } from "@/lib/utils/sendEmail";
 import userModel from "@/lib/models/user.model";
-import { generateWelcomeCoupon, generateWelcomeCouponEmail } from "@/lib/utils/generateWelcomeCoupon";
-import couponModel from "@/lib/models/coupon.model";
+// import { sendEmail } from "@/lib/utils/sendEmail";
+// import { generateWelcomeCoupon, generateWelcomeCouponEmail } from "@/lib/utils/generateWelcomeCoupon";
+// import couponModel from "@/lib/models/coupon.model";
 
 
 export async function POST(req: Request) {
@@ -31,37 +31,37 @@ export async function POST(req: Request) {
             user = new userModel({ email });
             await user.save();
 
-            const couponCode = generateWelcomeCoupon();
+            // const couponCode = generateWelcomeCoupon();
 
-            await couponModel.create({
-                code: couponCode,
-                discountValue: 5,
-                userEmail: email,
-                expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
-            });
+            // await couponModel.create({
+            //     code: couponCode,
+            //     discountValue: 5,
+            //     userEmail: email,
+            //     expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+            // });
 
-            const couponHtml = generateWelcomeCouponEmail({
-                couponCode,
-                discountValue: 5,
-                expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-            });
+            // const couponHtml = generateWelcomeCouponEmail({
+            //     couponCode,
+            //     discountValue: 5,
+            //     expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+            // });
 
-            const emailResult = await sendEmail(
-                email,
-                "🎁 Your 5% Welcome Discount is Here!",
-                couponHtml
-            );
+            // const emailResult = await sendEmail(
+            //     email,
+            //     "🎁 Your 5% Welcome Discount is Here!",
+            //     couponHtml
+            // );
 
-            if (emailResult.success) {
-                user.hasReceivedWelcomeCoupon = true;
-                console.log("success");
+            // if (emailResult.success) {
+            //     user.hasReceivedWelcomeCoupon = true;
+            //     console.log("success");
 
-                await user.save();
-            } else {
-                console.log("fail");
+            //     await user.save();
+            // } else {
+            //     console.log("fail");
 
-                await couponModel.deleteOne({ code: couponCode });
-            }
+            //     await couponModel.deleteOne({ code: couponCode });
+            // }
         }
 
         // Create token

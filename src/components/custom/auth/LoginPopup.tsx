@@ -112,11 +112,12 @@ export default function LoginPopup({ open, onClose }: { open: boolean, onClose: 
                     )}
                     {/* Close Button */}
                     <button onClick={() => !loading && onClose()} disabled={loading}
-                        className="absolute top-4 right-5 text-text text-3xl hover:text-red-500 ">
+                        className="absolute top-3 right-5 text-text text-3xl hover:text-red-500 ">
                         ✕
                     </button>
 
-                    <h2 className="text-text text-xl font-bold mb-6">Sign In for the first time and get 5% discount🎉.</h2>
+                    {/* <h2 className="text-text text-xl font-bold mb-6">Sign In for the first time and get 5% discount🎉.</h2> */}
+                    <h2 className="text-text text-lg font-bold mb-6 pt-2">Sign in to stay updated with our latest offers and discounts</h2>
                     <form onSubmit={formik.handleSubmit}>
 
                         <div className="mb-5">
