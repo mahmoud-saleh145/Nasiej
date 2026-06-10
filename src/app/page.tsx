@@ -4,7 +4,7 @@ import ProductList from "@/components/custom/productLists/ProductList";
 import img from "../../public/main-name.png"
 import Image from "next/image"
 import VideoHero from "@/components/custom/videoHero/VideoHero";
-import Sale from "@/components/custom/sale/Sale";
+// import Sale from "@/components/custom/sale/Sale";
 export default async function ProductsPage() {
 
   return (
