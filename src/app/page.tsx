@@ -30,9 +30,9 @@ export default async function ProductsPage() {
 
 
       <div className="container-fluid mx-auto  py-4 px-0 ">
-        <div className=" overflow-hidden ">
+        {/* <div className=" overflow-hidden ">
           <Sale />
-        </div>
+        </div> */}
 
         <h4 className="text-3xl text-text text-center py-2">All Products</h4>
         <div className="flex flex-col lg:flex-row gap-3 lg:px-6 px-2 ">

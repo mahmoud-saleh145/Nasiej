@@ -11,7 +11,6 @@ export default async function middleware(request: NextRequest) {
     const sessionId = request.cookies.get("sessionId")?.value;
 
 
-
     if (!token && !sessionId) {
         const newSession = uuidv4();
 
@@ -43,6 +42,7 @@ export default async function middleware(request: NextRequest) {
 
         if (!decoded) {
             return NextResponse.redirect(new URL("/", request.url));
+             response.cookies.delete("token");
         }
 
         if (adminPages.includes(url) && decoded.role !== "admin") {

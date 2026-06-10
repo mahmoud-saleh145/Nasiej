@@ -1,4 +1,5 @@
 export async function verifyJWT(token: string, secret: string) {
+
     const encoder = new TextEncoder();
     const key = await crypto.subtle.importKey(
         "raw",
@@ -28,6 +29,9 @@ export async function verifyJWT(token: string, secret: string) {
     const decodedJSON = JSON.parse(
         atob(payload.replace(/-/g, "+").replace(/_/g, "/"))
     );
+    if (decodedJSON.exp && Date.now() >= decodedJSON.exp * 1000) {
+    return null;
+}
 
     return decodedJSON;
 }
